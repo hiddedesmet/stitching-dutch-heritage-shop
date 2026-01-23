@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Stitching Dutch Heritage in the media - newspaper articles and press coverage.">
+  <meta name="keywords" content="Dutch heritage, press, media, newspaper, Folkloredag">
+
+  <title>In the Media - Stitching Dutch Heritage</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/navigation.css">
+
+  <style>
+    .media-hero {
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-accent) 100%);
+      color: var(--color-white);
+      text-align: center;
+      padding: var(--spacing-xl) 0;
+    }
+
+    .media-hero h1 {
+      color: var(--color-white);
+      margin-bottom: var(--spacing-sm);
+      font-size: 2.5rem;
+    }
+
+    .media-hero p {
+      font-size: 1.125rem;
+      max-width: 700px;
+      margin: 0 auto;
+      opacity: 0.95;
+    }
+
+    .media-content {
+      padding: var(--spacing-xl) 0;
+      background-color: var(--color-white);
+    }
+
+    .media-article {
+      max-width: 1200px;
+      margin: 0 auto var(--spacing-xl);
+      padding: var(--spacing-lg);
+      background-color: var(--color-background);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .media-article:last-child {
+      margin-bottom: 0;
+    }
+
+    .article-header {
+      text-align: center;
+      margin-bottom: var(--spacing-lg);
+      padding-bottom: var(--spacing-md);
+      border-bottom: 2px solid var(--color-accent);
+    }
+
+    .article-header h2 {
+      font-size: 2rem;
+      margin-bottom: var(--spacing-xs);
+      color: var(--color-primary);
+    }
+
+    .article-date {
+      font-size: 0.95rem;
+      color: var(--color-text-light);
+      font-style: italic;
+    }
+
+    .article-publication {
+      font-size: 1rem;
+      color: var(--color-accent);
+      font-weight: 600;
+      margin-top: var(--spacing-xs);
+    }
+
+    .article-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-lg);
+      align-items: start;
+    }
+
+    .article-scans {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-md);
+    }
+
+    .article-scan {
+      width: 100%;
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-md);
+      cursor: pointer;
+      transition: transform var(--transition-fast);
+    }
+
+    .article-scan:hover {
+      transform: scale(1.02);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .article-scan-caption {
+      text-align: center;
+      font-size: 0.875rem;
+      color: var(--color-text-light);
+      margin-top: var(--spacing-xs);
+      font-style: italic;
+    }
+
+    .article-translation {
+      background-color: var(--color-white);
+      padding: var(--spacing-md);
+      border-radius: var(--radius-sm);
+      border-left: 4px solid var(--color-accent);
+    }
+
+    .article-translation h3 {
+      font-size: 1.25rem;
+      margin-bottom: var(--spacing-sm);
+      color: var(--color-primary);
+    }
+
+    .article-translation p {
+      margin-bottom: var(--spacing-sm);
+      line-height: 1.8;
+      color: var(--color-text);
+    }
+
+    .article-translation p:last-child {
+      margin-bottom: 0;
+    }
+
+    .article-translation blockquote {
+      margin: var(--spacing-md) 0;
+      padding-left: var(--spacing-md);
+      border-left: 3px solid var(--color-secondary);
+      font-style: italic;
+      color: var(--color-text-light);
+    }
+
+    .media-note {
+      max-width: 800px;
+      margin: var(--spacing-lg) auto 0;
+      padding: var(--spacing-md);
+      background-color: rgba(184, 134, 11, 0.1);
+      border-left: 4px solid var(--color-accent);
+      border-radius: var(--radius-sm);
+      text-align: center;
+    }
+
+    .media-note p {
+      font-size: 0.95rem;
+      color: var(--color-text-light);
+      margin-bottom: 0;
+    }
+
+    @media (max-width: 768px) {
+      .media-hero h1 {
+        font-size: 2rem;
+      }
+
+      .article-body {
+        grid-template-columns: 1fr;
+      }
+
+      .article-header h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body class="lang-en">
+  <!-- Navigation -->
+  <header class="header">
+    <nav class="nav-container">
+      <a href="index.html" class="nav-brand">Stitching Dutch Heritage</a>
+
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <ul class="nav-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="wholesale-collections.html">Wholesale Collections</a></li>
+        <li><a href="certificates.html">Certificates of Authenticity</a></li>
+        <li><a href="media.html" class="active">In the Media</a></li>
+        <li><a href="contact.html">Contact</a></li>
+
+        <li class="lang-toggle">
+          <button data-lang="nl">NL</button>
+          <span class="separator">|</span>
+          <button data-lang="en" class="active">EN</button>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="media-hero">
+    <div class="container">
+      <h1>
+        <span class="lang-nl">In de Media</span>
+        <span class="lang-en">In the Media</span>
+      </h1>
+      <p class="lang-nl">
+        Ontdek hoe Stitching Dutch Heritage in de pers is verschenen
+      </p>
+      <p class="lang-en">
+        Discover how Stitching Dutch Heritage has been featured in the press
+      </p>
+    </div>
+  </section>
+
+  <!-- Media Content -->
+  <section class="media-content">
+    <div class="container">
+
+      <!-- Article 1: Placeholder for actual newspaper article -->
+      <article class="media-article">
+        <div class="article-header">
+          <h2>
+            <span class="lang-nl">Stitching Dutch Heritage op de Folkloredag</span>
+            <span class="lang-en">Stitching Dutch Heritage Featured at Folkloredag</span>
+          </h2>
+          <p class="article-publication">
+            <span class="lang-nl">[Naam van de Krant]</span>
+            <span class="lang-en">[Newspaper Name]</span>
+          </p>
+          <p class="article-date">
+            <span class="lang-nl">[Datum van publicatie]</span>
+            <span class="lang-en">[Publication Date]</span>
+          </p>
+        </div>
+
+        <div class="article-body">
+          <!-- Left: Article Scans -->
+          <div class="article-scans">
+            <div>
+              <img src="images/media/newspaper-front-page.jpg" alt="Newspaper Front Page" class="article-scan" loading="lazy">
+              <p class="article-scan-caption lang-nl">Voorpagina</p>
+              <p class="article-scan-caption lang-en">Front Page</p>
+            </div>
+            <div>
+              <img src="images/media/newspaper-inside-page.jpg" alt="Newspaper Inside Page" class="article-scan" loading="lazy">
+              <p class="article-scan-caption lang-nl">Binnenpagina</p>
+              <p class="article-scan-caption lang-en">Inside Page</p>
+            </div>
+          </div>
+
+          <!-- Right: Translation -->
+          <div class="article-translation">
+            <h3 class="lang-nl">Nederlandse Tekst</h3>
+            <h3 class="lang-en">English Translation</h3>
+
+            <div class="lang-nl">
+              <p>
+                [Hier komt de Nederlandse tekst van het krantenartikel]
+              </p>
+              <p>
+                Op de jaarlijkse Folkloredag trok Stitching Dutch Heritage veel
+                belangstelling met haar unieke collectie van authentieke Nederlandse
+                borduurwerken. Bezoekers konden genieten van werken die vaak
+                50-60 jaar oud zijn en met de hand zijn gemaakt.
+              </p>
+              <blockquote>
+                "Het is prachtig om te zien hoe deze oude ambachten weer tot leven
+                komen en gewaardeerd worden door een nieuw publiek."
+              </blockquote>
+              <p>
+                De collecties zijn nu ook beschikbaar voor museumshops en
+                erfgoedparken wereldwijd, elk met een certificaat van echtheid.
+              </p>
+            </div>
+
+            <div class="lang-en">
+              <p>
+                [English translation of the newspaper article will go here]
+              </p>
+              <p>
+                At the annual Folkloredag, Stitching Dutch Heritage attracted
+                considerable attention with its unique collection of authentic
+                Dutch embroidery works. Visitors were able to enjoy pieces that
+                are often 50-60 years old and hand-stitched.
+              </p>
+              <blockquote>
+                "It's wonderful to see how these old crafts come to life again
+                and are appreciated by a new audience."
+              </blockquote>
+              <p>
+                The collections are now also available to museum shops and
+                heritage parks worldwide, each with a certificate of authenticity.
+              </p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Note -->
+      <div class="media-note">
+        <p class="lang-nl">
+          <strong>Interesse in een interview of samenwerking?</strong> Neem contact met ons op via de contactpagina.
+        </p>
+        <p class="lang-en">
+          <strong>Interested in an interview or collaboration?</strong> Contact us via the contact page.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-mission">
+        <h3>
+          <span class="lang-nl">Onze Missie</span>
+          <span class="lang-en">Our Mission</span>
+        </h3>
+
+        <p class="lang-nl">
+          Onze missie is om Nederlands erfgoed te verbinden met de wereld.
+          Wij leveren aan museumshops, erfgoedparken en culturele festivals
+          unieke, met de hand gemaakte borduurwerken – altijd authentiek,
+          duurzaam en professioneel gerestaureerd.
+        </p>
+
+        <p class="lang-en">
+          Our mission is to connect Dutch heritage with the world. We supply
+          museum shops, heritage parks, and cultural festivals with unique,
+          hand-stitched works – always authentic, sustainable, and professionally
+          restored.
+        </p>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Stitching Dutch Heritage. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script src="js/main.js"></script>
+  <script>
+    // Optional: Add lightbox functionality for article scans
+    document.addEventListener('DOMContentLoaded', function() {
+      const articleScans = document.querySelectorAll('.article-scan');
+
+      articleScans.forEach(scan => {
+        scan.addEventListener('click', function() {
+          // Create simple image modal
+          const modal = document.createElement('div');
+          modal.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+          `;
+
+          const img = document.createElement('img');
+          img.src = this.src;
+          img.style.cssText = `
+            max-width: 90%;
+            max-height: 90vh;
+            object-fit: contain;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+          `;
+
+          modal.appendChild(img);
+          document.body.appendChild(modal);
+          document.body.style.overflow = 'hidden';
+
+          modal.addEventListener('click', function() {
+            document.body.removeChild(modal);
+            document.body.style.overflow = '';
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>

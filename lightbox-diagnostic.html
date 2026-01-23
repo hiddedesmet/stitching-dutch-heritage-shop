@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lightbox Diagnostic</title>
+
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/lightbox-enhanced.css">
+
+  <style>
+    body {
+      padding: 40px;
+      background: #f5f5f5;
+    }
+    .test-card {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .test-image {
+      width: 200px;
+      height: 200px;
+      background: #1a4d20;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: 4px;
+      margin: 20px auto;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .test-image:hover {
+      background: #2d6b35;
+    }
+    .diagnostic-info {
+      background: #fff3cd;
+      border: 1px solid #ffc107;
+      padding: 15px;
+      border-radius: 4px;
+      margin-top: 20px;
+    }
+    .diagnostic-info h3 {
+      margin-top: 0;
+      color: #856404;
+    }
+    .diagnostic-info ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+    .diagnostic-info li {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body class="lang-en">
+  <div class="test-card">
+    <h1>🔍 Lightbox Diagnostic Test</h1>
+    <p>Click the box below to test the lightbox:</p>
+
+    <div class="test-image" data-work-id="RH001" data-lightbox="test-collection">
+      Click Me!
+    </div>
+
+    <div class="diagnostic-info">
+      <h3>📋 Diagnostic Checklist</h3>
+      <p>Open the browser console (F12 or Cmd+Option+I) and check for:</p>
+      <ul>
+        <li>✅ "🚀 Initializing enhanced lightbox..." message</li>
+        <li>✅ "📸 Found X clickable work items" message</li>
+        <li>✅ When you click: "🖱️ Click detected on work item: RH001"</li>
+        <li>✅ "🔍 Opening lightbox for: RH001"</li>
+        <li>✅ "🎨 Active tab content styles" with opacity: 1, visibility: visible</li>
+        <li>❌ Any red error messages</li>
+      </ul>
+
+      <p><strong>Expected behavior:</strong></p>
+      <ul>
+        <li>Lightbox should open with dark background</li>
+        <li>You should see 3 tabs (Work / Certificate / Details)</li>
+        <li>You should see the RH001 image in the Work tab</li>
+        <li>Navigation arrows should be visible on left and right</li>
+        <li>Close button (×) should be visible in top right</li>
+      </ul>
+
+      <p><strong>If lightbox is blank:</strong> Check console for the computed styles. If opacity is 0 or visibility is hidden, there's a CSS issue.</p>
+    </div>
+  </div>
+
+  <!-- Manual lightbox test button -->
+  <div class="test-card" style="margin-top: 20px;">
+    <h2>🧪 Manual Lightbox Test</h2>
+    <p>Test the lightbox by directly opening it via JavaScript:</p>
+    <button onclick="testDirectOpen()" style="padding: 10px 20px; font-size: 16px; cursor: pointer;">
+      Direct Open Lightbox
+    </button>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/descriptions.js"></script>
+  <script src="js/lightbox-enhanced.js"></script>
+
+  <script>
+    function testDirectOpen() {
+      console.log('🧪 Manual test: Opening lightbox directly');
+
+      // Wait a moment for lightbox to be initialized
+      setTimeout(() => {
+        const lightbox = document.getElementById('lightbox');
+
+        if (!lightbox) {
+          console.error('❌ Lightbox element not found!');
+          alert('ERROR: Lightbox not created. Check console for details.');
+          return;
+        }
+
+        console.log('✅ Lightbox element exists');
+
+        // Check if lightbox has content
+        const tabContent = lightbox.querySelector('.lightbox-tab-content');
+        if (!tabContent) {
+          console.error('❌ Tab content not found inside lightbox!');
+          return;
+        }
+
+        console.log('✅ Tab content exists');
+
+        // Manually set image sources
+        const workImage = document.getElementById('lightboxImage');
+        if (workImage) {
+          workImage.src = 'images/collections/rh/RH001.jpg';
+          document.getElementById('lightboxArticleNumber').textContent = 'RH001';
+          console.log('✅ Set work image to RH001');
+        }
+
+        // Open lightbox
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        console.log('✅ Lightbox opened manually');
+
+        // Check computed styles
+        const activeTab = document.querySelector('.lightbox-tab-content.active');
+        if (activeTab) {
+          const styles = window.getComputedStyle(activeTab);
+          console.log('🎨 Active tab styles:', {
+            opacity: styles.opacity,
+            visibility: styles.visibility,
+            display: styles.display,
+            position: styles.position,
+            top: styles.top,
+            left: styles.left,
+            width: styles.width,
+            height: styles.height,
+            zIndex: styles.zIndex
+          });
+
+          const imageContainer = activeTab.querySelector('.lightbox-image-container');
+          if (imageContainer) {
+            const imgStyles = window.getComputedStyle(imageContainer);
+            console.log('🖼️ Image container styles:', {
+              display: imgStyles.display,
+              width: imgStyles.width,
+              height: imgStyles.height,
+              padding: imgStyles.padding
+            });
+          }
+        }
+
+        // Check lightbox-main height
+        const lightboxMain = lightbox.querySelector('.lightbox-main');
+        if (lightboxMain) {
+          const mainStyles = window.getComputedStyle(lightboxMain);
+          console.log('📏 Lightbox main container:', {
+            height: mainStyles.height,
+            flex: mainStyles.flex,
+            position: mainStyles.position,
+            overflow: mainStyles.overflow
+          });
+        }
+
+      }, 100);
+    }
+  </script>
+</body>
+</html>

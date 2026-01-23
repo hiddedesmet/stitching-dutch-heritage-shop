@@ -1,0 +1,399 @@
+/* ================================
+   Enhanced Lightbox with Tabs
+   ================================ */
+
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox.active {
+  display: flex;
+}
+
+.lightbox-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(4px);
+}
+
+.lightbox-content {
+  position: relative;
+  z-index: 10001;
+  max-width: 95vw;
+  max-height: 95vh;
+  height: 90vh;
+  width: 1200px;
+  background-color: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10002;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: var(--color-white);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.lightbox-close:hover {
+  background-color: var(--color-primary);
+  transform: scale(1.1);
+}
+
+/* Tabs */
+.lightbox-tabs {
+  display: flex;
+  background-color: var(--color-background);
+  border-bottom: 2px solid var(--color-border);
+  padding: 0 var(--spacing-md);
+  gap: var(--spacing-xs);
+}
+
+.lightbox-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  color: var(--color-text-light);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+  top: 2px;
+}
+
+.lightbox-tab:hover {
+  color: var(--color-primary);
+  background-color: rgba(26, 77, 32, 0.05);
+}
+
+.lightbox-tab.active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-accent);
+  background-color: var(--color-white);
+}
+
+.lightbox-tab svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Tab Content */
+.lightbox-main {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.lightbox-tab-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-normal), visibility var(--transition-normal);
+}
+
+.lightbox-tab-content.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Work Tab */
+.lightbox-image-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-lg);
+  background-color: #f5f5f5;
+}
+
+.lightbox-image {
+  max-width: 100%;
+  max-height: calc(95vh - 200px);
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.lightbox-work-info {
+  position: absolute;
+  bottom: var(--spacing-md);
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(26, 77, 32, 0.9);
+  color: var(--color-white);
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+}
+
+/* Certificate Tab */
+.lightbox-certificate-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-lg);
+  background-color: #f5f5f5;
+  position: relative;
+}
+
+.certificate-flip-btn {
+  position: absolute;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-md);
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  z-index: 10;
+}
+
+.certificate-flip-btn:hover {
+  background-color: var(--color-secondary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(26, 77, 32, 0.3);
+}
+
+.certificate-flip-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.certificate-card {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  aspect-ratio: 1 / 1.414;
+  perspective: 1000px;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.certificate-card.flipped {
+  transform: rotateY(180deg);
+}
+
+.certificate-side {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.certificate-side img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background-color: var(--color-white);
+}
+
+.certificate-en {
+  transform: rotateY(180deg);
+}
+
+/* Details Tab */
+.lightbox-details-container {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-lg);
+  height: 100%;
+  overflow-y: auto;
+}
+
+.lightbox-details-image {
+  position: sticky;
+  top: 0;
+  height: fit-content;
+}
+
+.lightbox-details-image img {
+  width: 100%;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.lightbox-details-content {
+  padding-right: var(--spacing-md);
+}
+
+.lightbox-details-content h2 {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-md);
+  line-height: 1.2;
+}
+
+.details-metadata {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-lg);
+  padding: var(--spacing-md);
+  background-color: var(--color-background);
+  border-left: 4px solid var(--color-accent);
+  border-radius: var(--radius-sm);
+}
+
+.detail-item {
+  display: flex;
+  gap: var(--spacing-xs);
+  font-size: 0.95rem;
+}
+
+.detail-item strong {
+  color: var(--color-primary);
+  min-width: 100px;
+}
+
+.details-description {
+  line-height: 1.8;
+  color: var(--color-text);
+}
+
+.details-description p {
+  margin-bottom: var(--spacing-md);
+}
+
+.details-description p:last-child {
+  margin-bottom: 0;
+}
+
+/* Navigation Arrows */
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.6);
+  color: var(--color-white);
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+  z-index: 10002;
+}
+
+.lightbox-nav:hover {
+  background-color: var(--color-primary);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.lightbox-prev {
+  left: var(--spacing-md);
+}
+
+.lightbox-next {
+  right: var(--spacing-md);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .lightbox-content {
+    max-width: 100vw;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+
+  .lightbox-tabs {
+    padding: 0 var(--spacing-sm);
+  }
+
+  .lightbox-tab {
+    font-size: 0.85rem;
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+
+  .lightbox-tab span {
+    display: none;
+  }
+
+  .lightbox-details-container {
+    grid-template-columns: 1fr;
+  }
+
+  .lightbox-details-image {
+    position: static;
+  }
+
+  .lightbox-nav {
+    width: 40px;
+    height: 40px;
+  }
+
+  .lightbox-nav svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .certificate-flip-btn {
+    font-size: 0.8rem;
+    padding: var(--spacing-xs);
+  }
+
+  .certificate-flip-btn span {
+    display: none;
+  }
+}

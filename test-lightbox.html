@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Lightbox</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/lightbox-enhanced.css">
+  <style>
+    body { padding: 2rem; font-family: system-ui; }
+    .test-card {
+      width: 200px;
+      cursor: pointer;
+      border: 2px solid #ccc;
+      padding: 1rem;
+      margin: 1rem;
+    }
+    .test-card img { width: 100%; }
+  </style>
+</head>
+<body>
+  <h1>Lightbox Test</h1>
+  <p>Klik op de foto hieronder:</p>
+  
+  <div class="test-card collection-image-item" data-work-id="RH001" data-lightbox="test">
+    <img src="images/collections/rh/RH001-thumb.jpg" alt="Test">
+    <div>RH001 - Test</div>
+  </div>
+
+  <script src="js/descriptions.js"></script>
+  <script src="js/lightbox-enhanced.js"></script>
+  
+  <script>
+    // Debug logging
+    console.log('Test page loaded');
+    window.addEventListener('error', function(e) {
+      console.error('Error:', e.message, e.filename, e.lineno);
+    });
+  </script>
+</body>
+</html>

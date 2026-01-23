@@ -1,0 +1,440 @@
+/**
+ * Lightbox for viewing individual embroidery works with certificates
+ * Includes certificate flip functionality (NL/EN)
+ */
+
+(function() {
+  'use strict';
+
+  // Create lightbox HTML structure
+  function createLightbox() {
+    const lightboxHTML = `
+      <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="lightbox-overlay"></div>
+        <div class="lightbox-content">
+          <button class="lightbox-close" aria-label="Close lightbox">&times;</button>
+
+          <div class="lightbox-main">
+            <!-- Left: Work Image -->
+            <div class="lightbox-image-container">
+              <img id="lightboxImage" src="" alt="" class="lightbox-image">
+              <div class="lightbox-work-info">
+                <span id="lightboxArticleNumber" class="lightbox-article-number"></span>
+              </div>
+            </div>
+
+            <!-- Right: Certificate -->
+            <div class="lightbox-certificate-container">
+              <div class="certificate-flip-wrapper">
+                <button class="certificate-flip-btn" id="certificateFlipBtn">
+                  <span class="lang-nl">Bekijk in Engels</span>
+                  <span class="lang-en">View in Dutch</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="1 4 1 10 7 10"></polyline>
+                    <polyline points="23 20 23 14 17 14"></polyline>
+                    <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path>
+                  </svg>
+                </button>
+
+                <div class="certificate-card" id="certificateCard">
+                  <div class="certificate-side certificate-nl">
+                    <img id="certificateNL" src="" alt="Certificate (Nederlands)">
+                  </div>
+                  <div class="certificate-side certificate-en">
+                    <img id="certificateEN" src="" alt="Certificate (English)">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Navigation -->
+          <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous work">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+          <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next work">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+        </div>
+      </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', lightboxHTML);
+    createLightboxStyles();
+  }
+
+  // Create lightbox styles
+  function createLightboxStyles() {
+    const style = document.createElement('style');
+    style.textContent = `
+      .lightbox {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 10000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .lightbox.active {
+        display: flex;
+      }
+
+      .lightbox-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.9);
+      }
+
+      .lightbox-content {
+        position: relative;
+        z-index: 10001;
+        max-width: 95vw;
+        max-height: 95vh;
+        width: 1400px;
+        background-color: var(--color-white);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+      }
+
+      .lightbox-close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background-color: rgba(30, 58, 95, 0.9);
+        color: var(--color-white);
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        font-size: 2rem;
+        cursor: pointer;
+        z-index: 10002;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+        transition: all var(--transition-fast);
+      }
+
+      .lightbox-close:hover {
+        background-color: var(--color-secondary);
+        transform: rotate(90deg);
+      }
+
+      .lightbox-main {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--spacing-md);
+        padding: var(--spacing-lg);
+        max-height: 95vh;
+        overflow-y: auto;
+      }
+
+      .lightbox-image-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .lightbox-image {
+        max-width: 100%;
+        max-height: 70vh;
+        object-fit: contain;
+        border-radius: var(--radius-sm);
+        box-shadow: var(--shadow-md);
+      }
+
+      .lightbox-work-info {
+        margin-top: var(--spacing-sm);
+        text-align: center;
+      }
+
+      .lightbox-article-number {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--color-primary);
+        background-color: rgba(30, 58, 95, 0.05);
+        padding: var(--spacing-xs) var(--spacing-md);
+        border-radius: var(--radius-sm);
+      }
+
+      .lightbox-certificate-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .certificate-flip-wrapper {
+        width: 100%;
+        max-width: 500px;
+      }
+
+      .certificate-flip-btn {
+        width: 100%;
+        margin-bottom: var(--spacing-sm);
+        padding: var(--spacing-xs) var(--spacing-sm);
+        background-color: var(--color-accent);
+        color: var(--color-white);
+        border: none;
+        border-radius: var(--radius-sm);
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--spacing-xs);
+        transition: all var(--transition-fast);
+      }
+
+      .certificate-flip-btn:hover {
+        background-color: #9a7509;
+      }
+
+      .certificate-card {
+        position: relative;
+        width: 100%;
+        perspective: 1000px;
+        aspect-ratio: 1 / 1.414; /* A4 ratio */
+      }
+
+      .certificate-side {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        transition: transform 0.6s ease;
+        border-radius: var(--radius-sm);
+        overflow: hidden;
+        box-shadow: var(--shadow-md);
+      }
+
+      .certificate-side img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        background-color: var(--color-white);
+      }
+
+      .certificate-nl {
+        transform: rotateY(0deg);
+      }
+
+      .certificate-en {
+        transform: rotateY(180deg);
+      }
+
+      .certificate-card.flipped .certificate-nl {
+        transform: rotateY(-180deg);
+      }
+
+      .certificate-card.flipped .certificate-en {
+        transform: rotateY(0deg);
+      }
+
+      .lightbox-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(30, 58, 95, 0.8);
+        color: var(--color-white);
+        border: none;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all var(--transition-fast);
+        z-index: 10002;
+      }
+
+      .lightbox-nav:hover {
+        background-color: var(--color-secondary);
+      }
+
+      .lightbox-nav:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+      }
+
+      .lightbox-prev {
+        left: 1rem;
+      }
+
+      .lightbox-next {
+        right: 1rem;
+      }
+
+      @media (max-width: 768px) {
+        .lightbox-main {
+          grid-template-columns: 1fr;
+          padding: var(--spacing-sm);
+        }
+
+        .lightbox-image {
+          max-height: 50vh;
+        }
+
+        .certificate-flip-wrapper {
+          max-width: 100%;
+        }
+
+        .lightbox-nav {
+          width: 40px;
+          height: 40px;
+        }
+
+        .lightbox-close {
+          width: 35px;
+          height: 35px;
+          font-size: 1.5rem;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  // Initialize lightbox
+  let currentWorkIndex = 0;
+  let currentCollection = [];
+  let certificateFlipped = false;
+
+  function initLightbox() {
+    // Create lightbox if it doesn't exist
+    if (!document.getElementById('lightbox')) {
+      createLightbox();
+    }
+
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const lightboxArticleNumber = document.getElementById('lightboxArticleNumber');
+    const certificateNL = document.getElementById('certificateNL');
+    const certificateEN = document.getElementById('certificateEN');
+    const certificateCard = document.getElementById('certificateCard');
+    const certificateFlipBtn = document.getElementById('certificateFlipBtn');
+    const closeBtn = lightbox.querySelector('.lightbox-close');
+    const overlay = lightbox.querySelector('.lightbox-overlay');
+    const prevBtn = document.getElementById('lightboxPrev');
+    const nextBtn = document.getElementById('lightboxNext');
+
+    // Add click listeners to collection images
+    document.querySelectorAll('.collection-image-item').forEach(item => {
+      item.addEventListener('click', function() {
+        const workId = this.getAttribute('data-work-id');
+        const collectionName = this.getAttribute('data-lightbox');
+
+        // Get all works in this collection
+        currentCollection = Array.from(
+          document.querySelectorAll(`[data-lightbox="${collectionName}"]`)
+        ).map(el => el.getAttribute('data-work-id'));
+
+        currentWorkIndex = currentCollection.indexOf(workId);
+        showWork(workId);
+        openLightbox();
+      });
+    });
+
+    // Certificate flip
+    certificateFlipBtn.addEventListener('click', function() {
+      certificateFlipped = !certificateFlipped;
+      if (certificateFlipped) {
+        certificateCard.classList.add('flipped');
+      } else {
+        certificateCard.classList.remove('flipped');
+      }
+    });
+
+    // Close lightbox
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      certificateFlipped = false;
+      certificateCard.classList.remove('flipped');
+    }
+
+    closeBtn.addEventListener('click', closeLightbox);
+    overlay.addEventListener('click', closeLightbox);
+
+    // Navigation
+    prevBtn.addEventListener('click', function() {
+      if (currentWorkIndex > 0) {
+        currentWorkIndex--;
+        showWork(currentCollection[currentWorkIndex]);
+      }
+    });
+
+    nextBtn.addEventListener('click', function() {
+      if (currentWorkIndex < currentCollection.length - 1) {
+        currentWorkIndex++;
+        showWork(currentCollection[currentWorkIndex]);
+      }
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', function(event) {
+      if (!lightbox.classList.contains('active')) return;
+
+      if (event.key === 'Escape') {
+        closeLightbox();
+      } else if (event.key === 'ArrowLeft') {
+        prevBtn.click();
+      } else if (event.key === 'ArrowRight') {
+        nextBtn.click();
+      }
+    });
+
+    // Custom escape event
+    document.addEventListener('escape-pressed', closeLightbox);
+
+    function showWork(workId) {
+      // Set work image
+      lightboxImage.src = `images/collections/${workId.substring(0, 2).toLowerCase()}/${workId}.jpg`;
+      lightboxImage.alt = `Embroidery Work ${workId}`;
+      lightboxArticleNumber.textContent = workId;
+
+      // Set certificates
+      certificateNL.src = `images/certificates/nl/${workId}-NL.jpg`;
+      certificateEN.src = `images/certificates/en/${workId}-EN.jpg`;
+
+      // Update navigation buttons
+      prevBtn.disabled = currentWorkIndex === 0;
+      nextBtn.disabled = currentWorkIndex === currentCollection.length - 1;
+
+      // Reset certificate flip
+      certificateFlipped = false;
+      certificateCard.classList.remove('flipped');
+    }
+
+    function openLightbox() {
+      lightbox.classList.add('active');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      closeBtn.focus();
+    }
+  }
+
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLightbox);
+  } else {
+    initLightbox();
+  }
+})();
