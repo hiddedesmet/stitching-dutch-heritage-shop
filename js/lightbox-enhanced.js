@@ -70,7 +70,7 @@
               <div class="lightbox-certificate-container">
                 <button class="certificate-flip-btn" id="certificateFlipBtn">
                   <span class="lang-nl">Bekijk in Engels</span>
-                  <span class="lang-en">View in Dutch</span>
+                  <span class="lang-en">View in English</span>
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polyline points="1 4 1 10 7 10"></polyline>
                     <polyline points="23 20 23 14 17 14"></polyline>
@@ -78,12 +78,12 @@
                   </svg>
                 </button>
 
-                <div class="certificate-card" id="certificateCard">
-                  <div class="certificate-side certificate-nl">
-                    <img id="certificateNL" src="" alt="Certificate (Nederlands)">
+                <div class="certificate-flip-card" id="certificateCard">
+                  <div class="certificate-side certificate-nl" id="certificateContentNL">
+                    <!-- Dynamic NL certificate content -->
                   </div>
-                  <div class="certificate-side certificate-en">
-                    <img id="certificateEN" src="" alt="Certificate (English)">
+                  <div class="certificate-side certificate-en" id="certificateContentEN">
+                    <!-- Dynamic EN certificate content -->
                   </div>
                 </div>
               </div>
@@ -202,6 +202,76 @@
     }
   }
 
+  // Load and render certificate content
+  async function loadCertificateContent(workId) {
+    if (!window.descriptionsManager) {
+      console.error('DescriptionsManager not loaded');
+      return;
+    }
+
+    const description = await window.descriptionsManager.getDescription(workId);
+    const collectionId = workId.substring(0, 2).toLowerCase();
+    const imagePath = `images/collections/${collectionId}/${workId}.jpg`;
+
+    // Generate NL certificate
+    const nlContent = generateCertificateHTML(workId, description, 'nl', imagePath);
+    document.getElementById('certificateContentNL').innerHTML = nlContent;
+
+    // Generate EN certificate
+    const enContent = generateCertificateHTML(workId, description, 'en', imagePath);
+    document.getElementById('certificateContentEN').innerHTML = enContent;
+  }
+
+  // Generate certificate HTML
+  function generateCertificateHTML(workId, description, lang, imagePath) {
+    const isNL = lang === 'nl';
+
+    // Get title and description
+    let title = workId;
+    let descText = '';
+    let dimensions = '-';
+    let year = '-';
+    let technique = '-';
+
+    if (description && description.metadata) {
+      title = isNL ? description.metadata.title_nl : description.metadata.title_en;
+      dimensions = description.metadata.dimensions || '-';
+      year = description.metadata.year || '-';
+      technique = description.metadata.technique || '-';
+    }
+
+    if (description) {
+      descText = isNL ? description.description_nl : description.description_en;
+    }
+
+    // Split description into paragraphs
+    const paragraphs = descText ? descText.split('\n\n').map(p => `<p>${p.trim()}</p>`).join('') : '';
+
+    return `
+      <div class="certificate-html">
+        <div class="certificate-inner">
+          <!-- Logo in decorative frame -->
+          <div class="certificate-logo-frame">
+            <img src="images/dutch-heritage-logo-${lang}.svg" alt="Stitching Dutch Heritage" class="certificate-logo">
+          </div>
+
+          <!-- Title -->
+          <h2 class="certificate-title">${title || workId}</h2>
+
+          <!-- Description text -->
+          <div class="certificate-description">
+            ${paragraphs || `<p><em>${isNL ? 'Beschrijving wordt geladen...' : 'Loading description...'}</em></p>`}
+          </div>
+
+          <!-- Dutch Houses at bottom -->
+          <div class="certificate-houses">
+            <img src="images/${isNL ? 'dutch-canal-houses' : 'dutch-houses-windmill'}.png" alt="Dutch Houses" class="houses-img">
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
   // Load work details
   async function loadWorkDetails(workId) {
     if (!window.descriptionsManager) {
@@ -242,11 +312,18 @@
   function toggleCertificateFlip() {
     certificateFlipped = !certificateFlipped;
     const card = document.getElementById('certificateCard');
+    const flipBtn = document.getElementById('certificateFlipBtn');
 
     if (certificateFlipped) {
+      // Now showing English certificate, button should offer to view Dutch
       card.classList.add('flipped');
+      flipBtn.querySelector('.lang-nl').textContent = 'Bekijk in Nederlands';
+      flipBtn.querySelector('.lang-en').textContent = 'View in Dutch';
     } else {
+      // Now showing Dutch certificate, button should offer to view English
       card.classList.remove('flipped');
+      flipBtn.querySelector('.lang-nl').textContent = 'Bekijk in Engels';
+      flipBtn.querySelector('.lang-en').textContent = 'View in English';
     }
   }
 
@@ -302,13 +379,9 @@
     document.getElementById('lightboxArticleNumber').textContent = currentWorkId;
     console.log('  ✓ Work image set to:', workImagePath);
 
-    // Update certificates
-    const certNLPath = `images/certificates/nl/${currentWorkId}-NL.jpg`;
-    const certENPath = `images/certificates/en/${currentWorkId}-EN.jpg`;
-    document.getElementById('certificateNL').src = certNLPath;
-    document.getElementById('certificateEN').src = certENPath;
-    console.log('  ✓ Certificate NL set to:', certNLPath);
-    console.log('  ✓ Certificate EN set to:', certENPath);
+    // Load and render dynamic certificates
+    loadCertificateContent(currentWorkId);
+    console.log('  ✓ Loading dynamic certificates for:', currentWorkId);
 
     // Reset certificate flip
     certificateFlipped = false;

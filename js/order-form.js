@@ -136,7 +136,7 @@
     notification.className = `notification notification-${type}`;
     notification.textContent = message;
     notification.style.cssText = `
-      background-color: ${type === 'success' ? '#28a745' : type === 'error' ? '#dc3545' : '#17a2b8'};
+      background-color: ${type === 'success' ? '#4a9c59' : type === 'error' ? '#dc3545' : '#1a4d20'};
       color: white;
       padding: 12px 24px;
       border-radius: 4px;
