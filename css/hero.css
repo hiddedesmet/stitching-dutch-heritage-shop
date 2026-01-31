@@ -45,7 +45,7 @@
 .hero-content {
   position: relative;
   z-index: 3;
-  max-width: 700px;
+  max-width: 1000px;
   padding: var(--spacing-xl) var(--spacing-lg);
   margin-left: 5%;
 }
@@ -225,8 +225,8 @@
 }
 
 .feature-icon {
-  width: 60px;
-  height: 60px;
+  width: 72px;
+  height: 52px;
   margin: 0 auto var(--spacing-sm);
   background: transparent;
   border: 2px solid var(--color-primary);
@@ -244,6 +244,12 @@
   stroke: var(--color-primary);
   stroke-width: 1.5;
   color: var(--color-primary);
+}
+
+/* Shopping cart icon appears smaller due to its design - compensate */
+.feature-icon [data-lucide="shopping-cart"] {
+  width: 32px;
+  height: 32px;
 }
 
 .feature-card-front h3 {

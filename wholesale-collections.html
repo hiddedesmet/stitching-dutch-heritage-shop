@@ -11,8 +11,12 @@
   <!-- CSS -->
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/navigation.css">
+  <link rel="stylesheet" href="css/hero.css">
   <link rel="stylesheet" href="css/collections.css">
   <link rel="stylesheet" href="css/lightbox-enhanced.css">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body class="lang-en">
   <!-- Navigation -->
@@ -666,30 +670,61 @@
     </div>
   </aside>
 
+  <!-- Heritage Features Footer Section -->
+  <section class="heritage-footer">
+    <div class="container">
+      <div class="heritage-footer-grid">
+        <!-- Feature 1: Borduren in Nederland -->
+        <div class="heritage-footer-item">
+          <div class="heritage-footer-icon">
+            <i data-lucide="history"></i>
+          </div>
+          <h3>
+            <span class="lang-nl">Borduren in Nederland</span>
+            <span class="lang-en">Embroidery in the Netherlands</span>
+          </h3>
+          <p>
+            <span class="lang-nl">Geïnspireerd door eeuwenoude Nederlandse borduurmethoden en historische werkstukken.</span>
+            <span class="lang-en">Inspired by centuries-old Dutch embroidery methods and historical works.</span>
+          </p>
+        </div>
+
+        <!-- Feature 2: Levend Erfgoed -->
+        <div class="heritage-footer-item">
+          <div class="heritage-footer-icon">
+            <i data-lucide="heart-handshake"></i>
+          </div>
+          <h3>
+            <span class="lang-nl">Levend erfgoed</span>
+            <span class="lang-en">Living heritage</span>
+          </h3>
+          <p>
+            <span class="lang-nl">Van Zaanse molens tot koninklijke wapens — elk borduurwerk vertelt een verhaal.</span>
+            <span class="lang-en">From Zaanse windmills to royal coats of arms — each embroidery tells a story.</span>
+          </p>
+        </div>
+
+        <!-- Feature 3: Onze Missie -->
+        <div class="heritage-footer-item">
+          <div class="heritage-footer-icon">
+            <i data-lucide="target"></i>
+          </div>
+          <h3>
+            <span class="lang-nl">Onze missie</span>
+            <span class="lang-en">Our mission</span>
+          </h3>
+          <p>
+            <span class="lang-nl">Wij maken met zorg passie, elke steek weerspiegelen wij voor authentieke stitching.</span>
+            <span class="lang-en">We craft with care and passion, reflecting authentic stitching in every piece.</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
-      <div class="footer-mission">
-        <h3>
-          <span class="lang-nl">Onze Missie</span>
-          <span class="lang-en">Our Mission</span>
-        </h3>
-
-        <p class="lang-nl">
-          Onze missie is om Nederlands erfgoed te verbinden met de wereld.
-          Wij leveren aan museumshops, erfgoedparken en culturele festivals
-          unieke, met de hand gemaakte borduurwerken – altijd authentiek,
-          duurzaam en professioneel gerestaureerd.
-        </p>
-
-        <p class="lang-en">
-          Our mission is to connect Dutch heritage with the world. We supply
-          museum shops, heritage parks, and cultural festivals with unique,
-          hand-stitched works – always authentic, sustainable, and professionally
-          restored.
-        </p>
-      </div>
-
       <div class="footer-bottom">
         <p>&copy; 2026 Stitching Dutch Heritage. All rights reserved.</p>
       </div>
@@ -702,5 +737,9 @@
   <script src="js/lightbox-enhanced.js"></script>
   <script src="js/tooltips.js"></script>
   <script src="js/order-form.js"></script>
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+  </script>
 </body>
 </html>

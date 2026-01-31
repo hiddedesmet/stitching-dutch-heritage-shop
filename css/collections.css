@@ -2,19 +2,32 @@
    Wholesale Collections Page
    ================================ */
 .collections-intro {
-  background-color: var(--color-white);
-  padding: var(--spacing-xl) 0 var(--spacing-lg);
+  background-color: #f5f0e8;
+  padding: var(--spacing-xl) 0;
   text-align: center;
+  position: relative;
+}
+
+.collections-intro::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background-color: var(--color-primary);
 }
 
 .collections-intro h1 {
-  margin-bottom: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
   font-size: 2.5rem;
+  color: var(--color-primary);
+  font-style: italic;
 }
 
 .collections-intro-text {
-  max-width: 800px;
-  margin: 0 auto var(--spacing-md);
+  max-width: 700px;
+  margin: 0 auto;
   font-size: 1.125rem;
   line-height: 1.7;
   color: var(--color-text-light);
@@ -25,11 +38,11 @@
    ================================ */
 .collections-grid {
   padding: var(--spacing-lg) 0;
-  background-color: var(--color-background);
+  background-color: #f5f0e8;
 }
 
 .collection-card {
-  background-color: var(--color-white);
+  background-color: #faf7f2;
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
   overflow: hidden;
@@ -190,7 +203,7 @@
    ================================ */
 .collections-notes {
   padding: var(--spacing-xl) 0;
-  background-color: var(--color-white);
+  background-color: #faf7f2;
 }
 
 .collections-notes h2 {

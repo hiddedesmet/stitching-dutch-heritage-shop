@@ -341,3 +341,109 @@ body.lang-en .lang-nl {
 .mt-sm { margin-top: var(--spacing-sm); }
 .mt-md { margin-top: var(--spacing-md); }
 .mt-lg { margin-top: var(--spacing-lg); }
+
+/* ================================
+   New Additions
+   ================================ */
+
+/* Flip Hint on Feature Cards */
+.flip-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: var(--spacing-sm);
+  font-size: 0.75rem;
+  color: var(--color-accent);
+  opacity: 0.8;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.flip-hint svg,
+.flip-hint [data-lucide] {
+  width: 14px;
+  height: 14px;
+  stroke: var(--color-accent);
+}
+
+.feature-card:hover .flip-hint {
+  opacity: 1;
+  color: var(--color-secondary);
+}
+
+.feature-card:hover .flip-hint svg {
+  animation: spin 1s ease-in-out;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(180deg); }
+}
+
+/* CTA Section */
+.cta-section {
+  background:
+    linear-gradient(135deg, rgba(245, 240, 232, 0.9) 0%, rgba(250, 247, 242, 0.95) 50%, rgba(245, 240, 232, 0.9) 100%),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-color: #f5f0e8;
+  position: relative;
+  border-top: none;
+}
+
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(ellipse at top left, rgba(255,255,255,0.4) 0%, transparent 50%),
+    radial-gradient(ellipse at bottom right, rgba(200,190,175,0.2) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.cta-section .container {
+  position: relative;
+  z-index: 1;
+}
+
+.cta-section h2 {
+  font-size: 2rem;
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-sm);
+  font-style: italic;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.cta-section h2 span {
+  flex-shrink: 0;
+}
+
+.cta-section h2::before,
+.cta-section h2::after {
+  content: '';
+  flex: 1;
+  max-width: 180px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(26, 77, 32, 0.4) 100%);
+}
+
+.cta-section h2::after {
+  background: linear-gradient(90deg, rgba(26, 77, 32, 0.4) 0%, transparent 100%);
+}
+
+.cta-section p {
+  font-size: 1.125rem;
+  color: var(--color-text);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
