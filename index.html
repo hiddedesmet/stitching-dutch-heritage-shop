@@ -18,6 +18,10 @@
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/navigation.css">
   <link rel="stylesheet" href="css/hero.css">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
 </head>
 <body class="lang-en">
   <!-- Navigation -->
@@ -34,7 +38,6 @@
       <ul class="nav-menu">
         <li><a href="index.html" class="active">Home</a></li>
         <li><a href="wholesale-collections.html">Wholesale Collections</a></li>
-        <li><a href="certificates.html">Certificates of Authenticity</a></li>
         <li><a href="media.html">In the Media</a></li>
         <li><a href="contact.html">Contact</a></li>
 
@@ -48,103 +51,207 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="hero" style="--hero-bg-image: url('images/hero/embroidery-collection.jpg');">
+  <section class="hero">
     <div class="hero-content">
       <h1>
-        <span class="lang-nl">Wij leveren aan museumwinkels, erfgoedparken en culturele festivals</span>
-        <span class="lang-en">We supply museum shops, heritage parks, and cultural festivals</span>
+        <span class="lang-nl">Authentieke Nederlandse borduurwerken –</span>
+        <span class="lang-nl">samengesteld in exclusieve wholesale collecties</span>
+        <span class="lang-en">Authentic Dutch embroideries –</span>
+        <span class="lang-en">curated in exclusive wholesale collections</span>
       </h1>
-
-      <!-- Hero Icons -->
-      <div class="hero-icons">
-        <div class="hero-icon-item">
-          <div class="hero-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-              <path d="M2 17l10 5 10-5"/>
-              <path d="M2 12l10 5 10-5"/>
-            </svg>
-          </div>
-          <span class="hero-icon-label lang-nl">Authentiek</span>
-          <span class="hero-icon-label lang-en">Authentic</span>
-        </div>
-
-        <div class="hero-icon-item">
-          <div class="hero-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/>
-              <line x1="16" y1="8" x2="2" y2="22"/>
-              <line x1="17.5" y1="15" x2="9" y2="15"/>
-            </svg>
-          </div>
-          <span class="hero-icon-label lang-nl">Handgemaakt</span>
-          <span class="hero-icon-label lang-en">Handmade</span>
-        </div>
-
-        <div class="hero-icon-item">
-          <div class="hero-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-              <path d="M3 9h18"/>
-              <path d="M9 21V9"/>
-            </svg>
-          </div>
-          <span class="hero-icon-label lang-nl">Erfgoed</span>
-          <span class="hero-icon-label lang-en">Heritage</span>
-        </div>
-
-        <div class="hero-icon-item">
-          <div class="hero-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="10"/>
-              <path d="M12 6v6l4 2"/>
-            </svg>
-          </div>
-          <span class="hero-icon-label lang-nl">Duurzaam</span>
-          <span class="hero-icon-label lang-en">Sustainable</span>
-        </div>
-      </div>
+      <p class="hero-subtitle">
+        <span class="lang-nl">Unieke, originele kruissteekwerken, professioneel gepresenteerd<br>en direct inzetbaar voor museumwinkels en erfgoedlocaties.</span>
+        <span class="lang-en">Unique, original cross-stitch works, professionally presented<br>and ready for museum shops and heritage locations.</span>
+      </p>
 
       <a href="wholesale-collections.html" class="btn btn-primary">
-        <span class="lang-nl">Bekijk Wholesale Collecties</span>
-        <span class="lang-en">View Wholesale Collections</span>
+        <span class="lang-nl">Bekijk wholesale collecties</span>
+        <span class="lang-en">View wholesale collections</span>
       </a>
     </div>
   </section>
 
-  <!-- Authentic Craft Section -->
-  <section class="authentic-craft">
+  <!-- Wat wij leveren Section -->
+  <section class="wat-wij-leveren">
     <div class="container">
-      <div class="authentic-craft-content">
+      <h2>
+        <span class="lang-nl">Wat wij leveren</span>
+        <span class="lang-en">What we deliver</span>
+      </h2>
+      <p class="section-intro">
+        <span class="lang-nl">Wij leveren zorgvuldig samengestelde collecties van originele borduurwerken, speciaal ontwikkeld voor verkoop in museumwinkels en erfgoedomgevingen.</span>
+        <span class="lang-en">We deliver carefully curated collections of original embroidery, specially developed for sale in museum shops and heritage environments.</span>
+      </p>
+
+      <div class="features-grid">
+        <div class="feature-card" onclick="this.classList.toggle('flipped')">
+          <div class="feature-card-inner">
+            <div class="feature-card-front">
+              <div class="feature-icon">
+                <i data-lucide="layout-grid"></i>
+              </div>
+              <h3>
+                <span class="lang-nl">Samengestelde collecties</span>
+                <span class="lang-en">Curated collections</span>
+              </h3>
+              <p>
+                <span class="lang-nl">Meerdere borduurwerken per pakket</span>
+                <span class="lang-en">Multiple embroideries per package</span>
+              </p>
+            </div>
+            <div class="feature-card-back">
+              <p>
+                <span class="lang-nl">Wij leveren zorgvuldig samengestelde collecties van vijf originele borduurwerken. Elke collectie vertelt als geheel een herkenbaar thema, terwijl de afzonderlijke werken ieder een eigen karakter en uitstraling behouden.</span>
+                <span class="lang-en">We deliver carefully curated collections of five original embroideries. Each collection tells a recognizable theme as a whole, while the individual works each retain their own character and appearance.</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature-card" onclick="this.classList.toggle('flipped')">
+          <div class="feature-card-inner">
+            <div class="feature-card-front">
+              <div class="feature-icon">
+                <i data-lucide="package-check"></i>
+              </div>
+              <h3>
+                <span class="lang-nl">Direct leverbaar</span>
+                <span class="lang-en">Ready to ship</span>
+              </h3>
+              <p>
+                <span class="lang-nl">Korte levertijd, direct verkoopklaar</span>
+                <span class="lang-en">Short delivery time, ready for sale</span>
+              </p>
+            </div>
+            <div class="feature-card-back">
+              <p>
+                <span class="lang-nl">De collecties zijn direct uit voorraad leverbaar en verzendklaar. Verzending vindt plaats binnen één week.</span>
+                <span class="lang-en">The collections are available directly from stock and ready to ship. Shipping takes place within one week.</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature-card" onclick="this.classList.toggle('flipped')">
+          <div class="feature-card-inner">
+            <div class="feature-card-front">
+              <div class="feature-icon">
+                <i data-lucide="languages"></i>
+              </div>
+              <h3>
+                <span class="lang-nl">Tweetalige info per werk</span>
+                <span class="lang-en">Bilingual info per piece</span>
+              </h3>
+              <p>
+                <span class="lang-nl">NL/EN infokaarten per werk inbegrepen</span>
+                <span class="lang-en">NL/EN info cards included per piece</span>
+              </p>
+            </div>
+            <div class="feature-card-back">
+              <p>
+                <span class="lang-nl">Bij elk borduurwerk hoort een tweetalige infokaart (NL/EN) met informatie over het verhaal, de herkomst en de culturele betekenis van het werk. Hierdoor zijn de collecties direct geschikt voor presentatie en verkoop in de museumwinkel.</span>
+                <span class="lang-en">Each embroidery comes with a bilingual info card (NL/EN) with information about the story, origin and cultural significance of the work. This makes the collections immediately suitable for presentation and sale in the museum shop.</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature-card" onclick="this.classList.toggle('flipped')">
+          <div class="feature-card-inner">
+            <div class="feature-card-front">
+              <div class="feature-icon">
+                <i data-lucide="store"></i>
+              </div>
+              <h3>
+                <span class="lang-nl">Geschikt voor verkoop</span>
+                <span class="lang-en">Suitable for retail</span>
+              </h3>
+              <p>
+                <span class="lang-nl">Een betekenisvol aandenken</span>
+                <span class="lang-en">A meaningful souvenir</span>
+              </p>
+            </div>
+            <div class="feature-card-back">
+              <p>
+                <span class="lang-nl">De collecties worden aangeboden tegen wholesale prijzen en zijn uitsluitend als complete set af te nemen. Ze zijn speciaal ontwikkeld voor museumwinkels, erfgoedlocaties en andere culturele omgevingen.</span>
+                <span class="lang-en">The collections are offered at wholesale prices and are only available as a complete set. They are specially developed for museum shops, heritage sites and other cultural environments.</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Van ambacht naar winkel Section -->
+  <section class="van-ambacht">
+    <div class="van-ambacht-image">
+      <img src="images/achtergrond.png" alt="Nederlandse borduurwerken">
+    </div>
+    <div class="van-ambacht-text">
+      <div class="text-box">
         <h2>
-          <span class="lang-nl">Authentiek Ambacht</span>
-          <span class="lang-en">Authentic Craft</span>
+          <span class="lang-nl">Van ambacht naar winkel</span>
+          <span class="lang-en">From craft to shop</span>
         </h2>
+        <p class="lang-nl">
+          Kruissteek maakt al eeuwenlang deel uit van het Nederlandse dagelijks leven. Door originele borduurwerken zorgvuldig te reinigen en opnieuw op te spannen, brengen wij dit ambacht terug in een hedendaagse context. Niet als museumobject achter glas, maar als tastbaar erfgoed dat bezoekers na hun museumbezoek mee naar huis kunnen nemen.
+        </p>
+        <p class="lang-en">
+          Cross-stitch has been part of Dutch daily life for centuries. By carefully cleaning and re-stretching original embroideries, we bring this craft back in a contemporary context. Not as a museum object behind glass, but as tangible heritage that visitors can take home after their museum visit.
+        </p>
+      </div>
+    </div>
+  </section>
 
-        <div class="bilingual-text lang-nl">
+  <!-- Heritage Features Footer Section -->
+  <section class="heritage-footer">
+    <div class="container">
+      <div class="heritage-footer-grid">
+        <!-- Feature 1: Borduren in Nederland -->
+        <div class="heritage-footer-item">
+          <div class="heritage-footer-icon">
+            <i data-lucide="history"></i>
+          </div>
+          <h3>
+            <span class="lang-nl">Borduren in Nederland</span>
+            <span class="lang-en">Embroidery in the Netherlands</span>
+          </h3>
           <p>
-            Kruissteek is al eeuwenlang onderdeel van Nederlandse huishoudens.
-            Elk werkje is met de hand gemaakt en draagt de geduld, kunde en
-            creativiteit van zijn maker. Door deze werken zorgvuldig te reinigen,
-            restaureren en opnieuw te presenteren, maken we dit authentieke ambacht
-            opnieuw toegankelijk voor de wereld.
+            <span class="lang-nl">Geïnspireerd door eeuwenoude Nederlandse borduurmethoden en historische werkstukken.</span>
+            <span class="lang-en">Inspired by centuries-old Dutch embroidery methods and historical works.</span>
           </p>
         </div>
 
-        <div class="bilingual-text lang-en">
+        <!-- Feature 2: Levend Erfgoed -->
+        <div class="heritage-footer-item">
+          <div class="heritage-footer-icon">
+            <i data-lucide="heart-handshake"></i>
+          </div>
+          <h3>
+            <span class="lang-nl">Levend erfgoed</span>
+            <span class="lang-en">Living heritage</span>
+          </h3>
           <p>
-            Cross-stitching has been part of Dutch households for centuries.
-            Every piece is stitched by hand, carrying the patience, skill, and
-            artistry of its maker. By carefully restoring and presenting these
-            works, we make this authentic craft available again for the world
-            to experience.
+            <span class="lang-nl">Van Zaanse molens tot koninklijke wapens — elk borduurwerk vertelt een verhaal.</span>
+            <span class="lang-en">From Zaanse windmills to royal coats of arms — each embroidery tells a story.</span>
           </p>
         </div>
 
-        <a href="wholesale-collections.html" class="btn btn-outline">
-          <span class="lang-nl">Bekijk Collecties</span>
-          <span class="lang-en">View Collections</span>
-        </a>
+        <!-- Feature 3: Onze Missie -->
+        <div class="heritage-footer-item">
+          <div class="heritage-footer-icon">
+            <i data-lucide="target"></i>
+          </div>
+          <h3>
+            <span class="lang-nl">Onze missie</span>
+            <span class="lang-en">Our mission</span>
+          </h3>
+          <p>
+            <span class="lang-nl">Wij maken met zorg passie, elke steek weerspiegelen wij voor authentieke stitching.</span>
+            <span class="lang-en">We craft with care and passion, reflecting authentic stitching in every piece.</span>
+          </p>
+        </div>
       </div>
     </div>
   </section>
@@ -152,27 +259,6 @@
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
-      <div class="footer-mission">
-        <h3>
-          <span class="lang-nl">Onze Missie</span>
-          <span class="lang-en">Our Mission</span>
-        </h3>
-
-        <p class="lang-nl">
-          Onze missie is om Nederlands erfgoed te verbinden met de wereld.
-          Wij leveren aan museumshops, erfgoedparken en culturele festivals
-          unieke, met de hand gemaakte borduurwerken – altijd authentiek,
-          duurzaam en professioneel gerestaureerd.
-        </p>
-
-        <p class="lang-en">
-          Our mission is to connect Dutch heritage with the world. We supply
-          museum shops, heritage parks, and cultural festivals with unique,
-          hand-stitched works – always authentic, sustainable, and professionally
-          restored.
-        </p>
-      </div>
-
       <div class="footer-bottom">
         <p>&copy; 2026 Stitching Dutch Heritage. All rights reserved.</p>
       </div>
@@ -181,5 +267,9 @@
 
   <!-- JavaScript -->
   <script src="js/main.js"></script>
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+  </script>
 </body>
 </html>

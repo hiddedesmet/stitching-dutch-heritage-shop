@@ -52,10 +52,12 @@
   color: var(--color-primary);
 }
 
-.collection-article-range {
+.collection-intro {
   font-size: 0.95rem;
+  line-height: 1.7;
   color: var(--color-text-light);
-  font-weight: 500;
+  margin: var(--spacing-sm) 0 0 0;
+  font-style: italic;
 }
 
 .collection-body {
@@ -91,16 +93,12 @@
 }
 
 .collection-image-item .article-number {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(26, 77, 32, 0.9);
-  color: var(--color-white);
-  padding: var(--spacing-xs);
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-align: center;
+  display: none;
+}
+
+/* Hide Folk Life collection */
+.collection-card[data-collection-id="FL"] {
+  display: none;
 }
 
 .collection-details {

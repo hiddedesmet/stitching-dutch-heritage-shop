@@ -14,35 +14,47 @@
 
   <style>
     .media-hero {
-      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-accent) 100%);
-      color: var(--color-white);
+      background-color: #f5f0e8;
+      color: var(--color-text);
       text-align: center;
       padding: var(--spacing-xl) 0;
+      position: relative;
+    }
+
+    .media-hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background-color: var(--color-primary);
     }
 
     .media-hero h1 {
-      color: var(--color-white);
+      color: var(--color-primary);
       margin-bottom: var(--spacing-sm);
       font-size: 2.5rem;
+      font-style: italic;
     }
 
     .media-hero p {
       font-size: 1.125rem;
       max-width: 700px;
       margin: 0 auto;
-      opacity: 0.95;
+      color: var(--color-text-light);
     }
 
     .media-content {
       padding: var(--spacing-xl) 0;
-      background-color: var(--color-white);
+      background-color: #f5f0e8;
     }
 
     .media-article {
       max-width: 1200px;
       margin: 0 auto var(--spacing-xl);
       padding: var(--spacing-lg);
-      background-color: var(--color-background);
+      background-color: var(--color-white);
       border-radius: var(--radius-md);
       box-shadow: var(--shadow-sm);
     }
@@ -55,13 +67,14 @@
       text-align: center;
       margin-bottom: var(--spacing-lg);
       padding-bottom: var(--spacing-md);
-      border-bottom: 2px solid var(--color-accent);
+      border-bottom: 2px solid var(--color-primary);
     }
 
     .article-header h2 {
       font-size: 2rem;
       margin-bottom: var(--spacing-xs);
       color: var(--color-primary);
+      font-style: italic;
     }
 
     .article-date {
@@ -72,7 +85,7 @@
 
     .article-publication {
       font-size: 1rem;
-      color: var(--color-accent);
+      color: var(--color-primary);
       font-weight: 600;
       margin-top: var(--spacing-xs);
     }
@@ -112,26 +125,51 @@
     }
 
     .article-translation {
-      background-color: var(--color-white);
+      background-color: #f9f7f4;
       padding: var(--spacing-md);
       border-radius: var(--radius-sm);
-      border-left: 4px solid var(--color-accent);
+      border-left: 4px solid var(--color-primary);
     }
 
     .article-translation h3 {
       font-size: 1.25rem;
       margin-bottom: var(--spacing-sm);
       color: var(--color-primary);
+      font-style: italic;
+    }
+
+    .article-translation h4 {
+      font-size: 1.1rem;
+      margin-top: var(--spacing-lg);
+      margin-bottom: var(--spacing-sm);
+      color: var(--color-primary);
+      font-weight: 600;
+      padding-top: var(--spacing-sm);
+      border-top: 1px solid rgba(26, 77, 32, 0.2);
     }
 
     .article-translation p {
       margin-bottom: var(--spacing-sm);
       line-height: 1.8;
       color: var(--color-text);
+      font-size: 0.95rem;
     }
 
     .article-translation p:last-child {
       margin-bottom: 0;
+    }
+
+    .article-translation .article-location {
+      font-size: 0.95rem;
+    }
+
+    .article-translation .article-author {
+      font-size: 0.9rem;
+      color: var(--color-text-light);
+      margin: var(--spacing-sm) 0;
+      padding: var(--spacing-sm) 0;
+      border-top: 1px solid rgba(0,0,0,0.1);
+      border-bottom: 1px solid rgba(0,0,0,0.1);
     }
 
     .article-translation blockquote {
@@ -146,8 +184,8 @@
       max-width: 800px;
       margin: var(--spacing-lg) auto 0;
       padding: var(--spacing-md);
-      background-color: rgba(184, 134, 11, 0.1);
-      border-left: 4px solid var(--color-accent);
+      background-color: var(--color-white);
+      border-left: 4px solid var(--color-primary);
       border-radius: var(--radius-sm);
       text-align: center;
     }
@@ -188,7 +226,6 @@
       <ul class="nav-menu">
         <li><a href="index.html">Home</a></li>
         <li><a href="wholesale-collections.html">Wholesale Collections</a></li>
-        <li><a href="certificates.html">Certificates of Authenticity</a></li>
         <li><a href="media.html" class="active">In the Media</a></li>
         <li><a href="contact.html">Contact</a></li>
 
@@ -221,20 +258,17 @@
   <section class="media-content">
     <div class="container">
 
-      <!-- Article 1: Placeholder for actual newspaper article -->
+      <!-- Article 1: Newspaper article -->
       <article class="media-article">
         <div class="article-header">
           <h2>
-            <span class="lang-nl">Stitching Dutch Heritage op de Folkloredag</span>
-            <span class="lang-en">Stitching Dutch Heritage Featured at Folkloredag</span>
+            <span class="lang-nl">Chantèl de Smet knapt oer-Hollands borduurwerk op</span>
+            <span class="lang-en">Chantèl de Smet restores traditional Dutch embroidery</span>
           </h2>
-          <p class="article-publication">
-            <span class="lang-nl">[Naam van de Krant]</span>
-            <span class="lang-en">[Newspaper Name]</span>
-          </p>
+          <p class="article-publication">Noord-Hollands Dagblad</p>
           <p class="article-date">
-            <span class="lang-nl">[Datum van publicatie]</span>
-            <span class="lang-en">[Publication Date]</span>
+            <span class="lang-nl">door José Pietens</span>
+            <span class="lang-en">by José Pietens</span>
           </p>
         </div>
 
@@ -242,61 +276,93 @@
           <!-- Left: Article Scans -->
           <div class="article-scans">
             <div>
-              <img src="images/media/newspaper-front-page.jpg" alt="Newspaper Front Page" class="article-scan" loading="lazy">
-              <p class="article-scan-caption lang-nl">Voorpagina</p>
-              <p class="article-scan-caption lang-en">Front Page</p>
+              <img src="images/krant.png" alt="Krantenartikel pagina 1" class="article-scan" loading="lazy">
             </div>
             <div>
-              <img src="images/media/newspaper-inside-page.jpg" alt="Newspaper Inside Page" class="article-scan" loading="lazy">
-              <p class="article-scan-caption lang-nl">Binnenpagina</p>
-              <p class="article-scan-caption lang-en">Inside Page</p>
+              <img src="images/krant2.png" alt="Krantenartikel pagina 2" class="article-scan" loading="lazy">
+            </div>
+            <div>
+              <img src="images/krant3.png" alt="Krantenartikel pagina 3" class="article-scan" loading="lazy">
             </div>
           </div>
 
-          <!-- Right: Translation -->
+          <!-- Right: Article Text -->
           <div class="article-translation">
-            <h3 class="lang-nl">Nederlandse Tekst</h3>
-            <h3 class="lang-en">English Translation</h3>
+            <h3>
+              <span class="lang-nl">Monnikenwerk van oma aan de muur in Japan of Canada</span>
+              <span class="lang-en">Grandma's painstaking work on walls in Japan or Canada</span>
+            </h3>
 
-            <div class="lang-nl">
-              <p>
-                [Hier komt de Nederlandse tekst van het krantenartikel]
-              </p>
-              <p>
-                Op de jaarlijkse Folkloredag trok Stitching Dutch Heritage veel
-                belangstelling met haar unieke collectie van authentieke Nederlandse
-                borduurwerken. Bezoekers konden genieten van werken die vaak
-                50-60 jaar oud zijn en met de hand zijn gemaakt.
-              </p>
-              <blockquote>
-                "Het is prachtig om te zien hoe deze oude ambachten weer tot leven
-                komen en gewaardeerd worden door een nieuw publiek."
-              </blockquote>
-              <p>
-                De collecties zijn nu ook beschikbaar voor museumshops en
-                erfgoedparken wereldwijd, elk met een certificaat van echtheid.
-              </p>
-            </div>
+            <p>
+              <span class="lang-nl">Vrijwel iedereen kent de borduurwerken met oer-Hollandse taferelen, maar bijna niemand lijkt ze meer te willen hebben. Zonde, vindt Chantèl de Smet (45) uit Jisp, want ze horen bij de Nederlandse identiteit. Ze geeft oude borduursels een tweede leven en komt ermee naar de Folkloredag op de Zaanse Schans. „Ze zijn ooit met liefde gemaakt en vertellen iets over onze geschiedenis."</span>
+              <span class="lang-en">Almost everyone knows the embroideries with traditional Dutch scenes, but hardly anyone seems to want them anymore. A shame, thinks Chantèl de Smet (45) from Jisp, because they belong to Dutch identity. She gives old embroideries a second life and brings them to the Folklore Day at the Zaanse Schans. "They were once made with love and tell something about our history."</span>
+            </p>
 
-            <div class="lang-en">
-              <p>
-                [English translation of the newspaper article will go here]
-              </p>
-              <p>
-                At the annual Folkloredag, Stitching Dutch Heritage attracted
-                considerable attention with its unique collection of authentic
-                Dutch embroidery works. Visitors were able to enjoy pieces that
-                are often 50-60 years old and hand-stitched.
-              </p>
-              <blockquote>
-                "It's wonderful to see how these old crafts come to life again
-                and are appreciated by a new audience."
-              </blockquote>
-              <p>
-                The collections are now also available to museum shops and
-                heritage parks worldwide, each with a certificate of authenticity.
-              </p>
-            </div>
+            <p class="article-author">
+              <span class="lang-nl">door <strong>José Pietens</strong></span>
+              <span class="lang-en">by <strong>José Pietens</strong></span><br>
+              jose.pietens@ndsmbl.nl
+            </p>
+
+            <p class="article-location">
+              <span class="lang-nl"><strong>Jisp</strong> ■ Je zult Chantèl niet zelf zien priegelen met naald en draad. Ze heeft op school niet eens borduren geleerd en doet alleen aan haken. De liefde voor het Hollandse borduurwerk bloeide op nadat ze in de Zaanstreek was komen wonen. Chantèl zag de Zaanse Schans en was er meteen gek op. Dus toen ze later een borduurwerk van het wereldbekende Buurtje op Koningsdag zag, ging dat linnen recht mee naar huis. Leuk voor een Zaans hoekje, dacht ze.</span>
+              <span class="lang-en"><strong>Jisp</strong> ■ You won't see Chantèl herself fiddling with needle and thread. She didn't even learn embroidery at school and only does crochet. Her love for Dutch embroidery blossomed after she moved to the Zaan region. Chantèl saw the Zaanse Schans and was immediately smitten. So when she later spotted an embroidery of the world-famous 'Buurtje' on King's Day, that linen went straight home with her. Nice for a Zaan corner, she thought.</span>
+            </p>
+
+            <p>
+              <span class="lang-nl">Bij dat ene hoekje bleef het echter niet. Chantèl heeft nu een hobby waar ze veel tijd en energie in steekt. „Online staat best veel borduurwerk. Veel mensen zullen het wel herkennen: een oma of moeder die zat te borduren. 's Winters vaak avondenlang. Maar deze vrouwen zijn nu overleden of op de leeftijd dat ze kleiner gaan wonen. Hun huizen worden uitgeruimd en het lijkt of niemand die borduurwerken wil hebben. Althans, dat gevoel heb ik."</span>
+              <span class="lang-en">However, it didn't stop at that one corner. Chantèl now has a hobby she invests a lot of time and energy in. "There's quite a lot of embroidery online. Many people will recognize it: a grandmother or mother who sat embroidering. Often for hours on winter evenings. But these women have now passed away or are at the age where they're downsizing. Their houses are being cleared out and it seems like nobody wants these embroideries. At least, that's my feeling."</span>
+            </p>
+
+            <h4>
+              <span class="lang-nl">Roestige spijkers</span>
+              <span class="lang-en">Rusty nails</span>
+            </h4>
+
+            <p>
+              <span class="lang-nl">Op het eerste gezicht is dat niet zo vreemd. Het handwerk zit meestal nog in de originele lijst, die soms van roestige spijkers en Bison Kit aan elkaar hangt en vaak niet fris meer is. „Zo'n werk heeft vijftig jaar gehangen in een kamer waar werd gerookt, de open haard of gaskachel brandde. Het glas is vet en het borduurwerk vies. Ik leg het in bad en dan zie je de bruine zooi van een halve eeuw eruit komen. Ik was alles zeker drie keer, met drie verschillende wasmiddelen. Daarna span ik het om foamboard en ziet het eruit als een modern kunstwerk."</span>
+              <span class="lang-en">At first glance, that's not so strange. The handiwork is usually still in the original frame, which sometimes hangs together with rusty nails and Bison glue and often isn't fresh anymore. "Such a work has hung for fifty years in a room where people smoked, where the fireplace or gas heater burned. The glass is greasy and the embroidery dirty. I put it in the bath and then you see the brown mess of half a century come out. I wash everything at least three times, with three different detergents. Then I stretch it over foam board and it looks like a modern artwork."</span>
+            </p>
+
+            <p>
+              <span class="lang-nl">Onder de naam Stitching Dutch Heritage geeft Chantèl de werken een tweede leven. Bij elk borduurwerk hoort een kaart met uitleg over de betekenis. Chantèl verzamelt Nederlandse erfgoed: typisch Hollandse taferelen, boerderijen, stadsgezichten en het Koninklijk Huis. Talloze meesters werden er vroeger geborduurd, klederdrachten, Amsterdamse gevels en Delftsblauw tegeltjes. De meeste in kruissteek met borduurdraad, soms ook in een enkele steek of met wol.</span>
+              <span class="lang-en">Under the name Stitching Dutch Heritage, Chantèl gives the works a second life. Each embroidery comes with a card explaining its meaning. Chantèl collects Dutch heritage: typical Dutch scenes, farms, cityscapes and the Royal House. Countless masters were embroidered in the past, traditional costumes, Amsterdam facades and Delft blue tiles. Most in cross-stitch with embroidery thread, sometimes also in a single stitch or with wool.</span>
+            </p>
+
+            <p>
+              <span class="lang-nl">In de tijd dat er nog niet zo veel werd gefotografeerd als tegenwoordig, werden van gebeurtenissen en evenementen borduurwerken gemaakt, leerde ze. Bijvoorbeeld van de rit met de Gouden Koets van Beatrix en Claus op hun huwelijksdag in 1966. Vrouwen en handwerkbladen als Margriet en Burda kwamen met zulke patronen en ook textielkunstenaressen Mies Bloch uit Bergen was een bekende patroonmaker.</span>
+              <span class="lang-en">In the days when not as many photos were taken as today, embroideries were made of events and occasions, she learned. For example, of the ride in the Golden Coach by Beatrix and Claus on their wedding day in 1966. Women's and craft magazines like Margriet and Burda came up with such patterns, and textile artist Mies Bloch from Bergen was also a well-known pattern maker.</span>
+            </p>
+
+            <h4>
+              <span class="lang-nl">Kruissteek</span>
+              <span class="lang-en">Cross-stitch</span>
+            </h4>
+
+            <p>
+              <span class="lang-nl">In Chantels verzameling zitten ook geborduurde postzelgels met de beeltenissen van koninginnen Wilhelmina en Juliana en een merklap ter herinnering aan de geboorte van prinses Beatrix. Overigens is het Koninklijk Huis nog steeds een dankbaar onderwerp voor borduurders. De geboorte van kroonprinses Amalia en de verloving van haar ouders Willem-Alexander en Maxima zijn eveneens in kruissteek vereeuwigd. Andere opvallende exemplaren zijn een ABC van de bekende tekenaar Dick Bruna en een kaart van 'Amstelredam' gebaseerd op de topografische etsen van Caspar Merian uit de zeventiende eeuw.</span>
+              <span class="lang-en">Chantel's collection also includes embroidered postage stamps with the likenesses of Queens Wilhelmina and Juliana and a sampler commemorating the birth of Princess Beatrix. Incidentally, the Royal House is still a popular subject for embroiderers. The birth of Crown Princess Amalia and the engagement of her parents Willem-Alexander and Maxima have also been immortalized in cross-stitch. Other notable specimens include an ABC by the famous illustrator Dick Bruna and a map of 'Amstelredam' based on the topographical etchings of Caspar Merian from the seventeenth century.</span>
+            </p>
+
+            <p>
+              <span class="lang-nl">De opmerkelijkste Zaanse vondst is een boruduurpatroon van de Zaanse Schans die de afdeling voorlichting van Zaanstad in 1981 heeft laten maken. Ze heeft een origineel patroon, voorzien van een handgeschreven kerstgroet van toenmalige burgemeester Arie Lems.</span>
+              <span class="lang-en">The most remarkable Zaan find is an embroidery pattern of the Zaanse Schans that the Zaanstad public information department had made in 1981. She has an original pattern, complete with a handwritten Christmas greeting from the then-mayor Arie Lems.</span>
+            </p>
+
+            <h4>
+              <span class="lang-nl">Beetje Lui</span>
+              <span class="lang-en">A bit lazy</span>
+            </h4>
+
+            <p>
+              <span class="lang-nl">Chantel heeft inmiddels een goed oog gekregen voor kwaliteit. Je kunt het zien als iemand het heeft afgeraffeld of een beetje lui is geweest. Dan borduren ze net niet alles wat volgens het patroon zou moeten. Als ze op een witte doek borduren, dan laten ze de witte delen gewoon leeg in plaats van die met witte kruissteken in te vullen.</span>
+              <span class="lang-en">Chantel has now developed a good eye for quality. You can tell when someone has rushed it or been a bit lazy. Then they don't quite embroider everything that the pattern calls for. If they embroider on white fabric, they just leave the white parts empty instead of filling them in with white cross-stitches.</span>
+            </p>
+
+            <p>
+              <span class="lang-nl">Het zijn natuurlijk vaak enorme patronen en er zit veel werk in. Monnikenwerk, met van die heel kleine steekjes. Het zou leuk zijn als dat allemaal weer bij mensen aan de muur komt te hangen. Of dat nu in Nederland is of bij toeristen uit Canada of Japan.</span>
+              <span class="lang-en">They are of course often enormous patterns with a lot of work in them. Painstaking work, with those very small stitches. It would be nice if all of that could hang on people's walls again. Whether that's in the Netherlands or with tourists from Canada or Japan.</span>
+            </p>
           </div>
         </div>
       </article>
@@ -317,27 +383,6 @@
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
-      <div class="footer-mission">
-        <h3>
-          <span class="lang-nl">Onze Missie</span>
-          <span class="lang-en">Our Mission</span>
-        </h3>
-
-        <p class="lang-nl">
-          Onze missie is om Nederlands erfgoed te verbinden met de wereld.
-          Wij leveren aan museumshops, erfgoedparken en culturele festivals
-          unieke, met de hand gemaakte borduurwerken – altijd authentiek,
-          duurzaam en professioneel gerestaureerd.
-        </p>
-
-        <p class="lang-en">
-          Our mission is to connect Dutch heritage with the world. We supply
-          museum shops, heritage parks, and cultural festivals with unique,
-          hand-stitched works – always authentic, sustainable, and professionally
-          restored.
-        </p>
-      </div>
-
       <div class="footer-bottom">
         <p>&copy; 2026 Stitching Dutch Heritage. All rights reserved.</p>
       </div>
