@@ -335,10 +335,12 @@
     width: 100%;
     margin: var(--spacing-md) auto;
     transform: none;
+    display: none;
   }
 
   .order-cart.visible {
     transform: none;
+    display: block;
   }
 }
 

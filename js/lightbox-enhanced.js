@@ -398,6 +398,11 @@
   // Close lightbox
   function closeLightbox() {
     const lightbox = document.getElementById('lightbox');
+
+    // Move focus outside the lightbox before hiding to avoid aria-hidden warning
+    const focusTarget = document.querySelector('.nav-brand') || document.body;
+    focusTarget.focus({ preventScroll: true });
+
     lightbox.classList.remove('active');
     lightbox.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';

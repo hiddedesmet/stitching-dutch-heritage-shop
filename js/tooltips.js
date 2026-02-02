@@ -141,6 +141,7 @@
   function initTooltips() {
     // Add event listeners to all collection items
     document.addEventListener('mouseenter', function(event) {
+      if (!event.target || !event.target.closest) return;
       const item = event.target.closest('.collection-image-item');
       if (item) {
         showTooltip(item, event);
@@ -148,6 +149,7 @@
     }, true);
 
     document.addEventListener('mouseleave', function(event) {
+      if (!event.target || !event.target.closest) return;
       const item = event.target.closest('.collection-image-item');
       if (item) {
         hideTooltip();
@@ -155,6 +157,7 @@
     }, true);
 
     document.addEventListener('mousemove', function(event) {
+      if (!event.target || !event.target.closest) return;
       const item = event.target.closest('.collection-image-item');
       if (item && currentTarget === item) {
         updateTooltipPosition(event);
