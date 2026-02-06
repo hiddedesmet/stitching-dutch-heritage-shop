@@ -7,6 +7,13 @@
     "fetch": {
       "command": "uvx",
       "args": ["mcp-server-fetch"]
+    },
+    "figma": {
+      "command": "npx",
+      "args": ["-y", "@anthropic/mcp-figma"],
+      "env": {
+        "FIGMA_ACCESS_TOKEN": "YOUR_FIGMA_TOKEN_HERE"
+      }
     }
   }
 }
