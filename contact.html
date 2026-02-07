@@ -19,6 +19,9 @@
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
+  <!-- EmailJS SDK for confirmation emails -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
   <style>
     .contact-hero {
       background-color: #f5f0e8;
@@ -387,7 +390,7 @@
             IMPORTANT: Replace 'YOUR_FORMSPREE_ID' with your actual Formspree form ID
             Sign up at https://formspree.io/ to get your form ID
           -->
-          <form id="contactForm" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+          <form id="contactForm" action="https://formspree.io/f/mpqjzrpb" method="POST">
 
             <div class="form-row">
               <div class="form-group">
@@ -420,6 +423,52 @@
               <label for="phone" class="lang-nl">Telefoonnummer</label>
               <label for="phone" class="lang-en">Phone Number</label>
               <input type="tel" id="phone" name="phone">
+            </div>
+
+            <div class="form-group">
+              <label for="address" class="required lang-nl">Verzendadres</label>
+              <label for="address" class="required lang-en">Shipping Address</label>
+              <input type="text" id="address" name="shipping_address" required placeholder="Street name and number">
+            </div>
+
+            <div class="form-group">
+              <label for="address2" class="lang-nl">Adresregel 2</label>
+              <label for="address2" class="lang-en">Address Line 2</label>
+              <input type="text" id="address2" name="shipping_address_2" placeholder="Building, floor, suite, etc. (optional)">
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="postalCode" class="required lang-nl">Postcode</label>
+                <label for="postalCode" class="required lang-en">Postal Code</label>
+                <input type="text" id="postalCode" name="postal_code" required>
+              </div>
+
+              <div class="form-group">
+                <label for="city" class="required lang-nl">Plaats</label>
+                <label for="city" class="required lang-en">City</label>
+                <input type="text" id="city" name="city" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="country" class="required lang-nl">Land</label>
+              <label for="country" class="required lang-en">Country</label>
+              <select id="country" name="country" required>
+                <option value="" disabled selected>Select a country / Selecteer een land</option>
+                <option value="Netherlands">Nederland / Netherlands</option>
+                <option value="Belgium">België / Belgium</option>
+                <option value="Germany">Duitsland / Germany</option>
+                <option value="France">Frankrijk / France</option>
+                <option value="United Kingdom">Verenigd Koninkrijk / United Kingdom</option>
+                <option value="Luxembourg">Luxemburg / Luxembourg</option>
+                <option value="Austria">Oostenrijk / Austria</option>
+                <option value="Switzerland">Zwitserland / Switzerland</option>
+                <option value="Denmark">Denemarken / Denmark</option>
+                <option value="Sweden">Zweden / Sweden</option>
+                <option value="Norway">Noorwegen / Norway</option>
+                <option value="Other">Anders / Other</option>
+              </select>
             </div>
 
             <div class="form-group">
@@ -547,8 +596,34 @@
         });
 
         if (response.ok) {
+          // Save form data before reset for confirmation email
+          const confirmationData = {
+            company_name: formData.get('company_name'),
+            contact_person: formData.get('contact_person'),
+            email: formData.get('email'),
+            shipping_address: formData.get('shipping_address'),
+            shipping_address_2: formData.get('shipping_address_2') || '',
+            postal_code: formData.get('postal_code'),
+            city: formData.get('city'),
+            country: formData.get('country'),
+            order_details: formData.get('order_details'),
+            additional_info: formData.get('additional_info') || ''
+          };
+
           successMsg.classList.add('visible');
           form.reset();
+
+          // Send confirmation email via EmailJS (best effort)
+          // Configure: Replace these with your EmailJS credentials
+          const EMAILJS_PUBLIC_KEY = 'xRbUsiQ0O4S2VpiIZ';
+          const EMAILJS_SERVICE_ID = 'service_5w2ndtc';
+          const EMAILJS_TEMPLATE_ID = 'template_3d76mzn';
+
+          if (EMAILJS_PUBLIC_KEY !== 'YOUR_EMAILJS_PUBLIC_KEY') {
+            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, confirmationData, EMAILJS_PUBLIC_KEY)
+              .then(() => console.log('Confirmation email sent'))
+              .catch((err) => console.error('Confirmation email failed:', err));
+          }
 
           // Clear order cart after successful submission
           if (typeof window.clearOrderCart === 'function') {
