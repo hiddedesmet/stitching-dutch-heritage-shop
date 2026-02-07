@@ -22,6 +22,10 @@
   <!-- Site Config (gitignored) -->
   <script src="js/config.js"></script>
 
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+
   <!-- EmailJS SDK for confirmation emails -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
@@ -572,6 +576,7 @@
   <!-- JavaScript -->
   <script src="js/main.js"></script>
   <script src="js/order-form.js"></script>
+  <script src="js/collection-status.js"></script>
   <script>
     // Initialize Lucide icons
     lucide.createIcons();
@@ -624,6 +629,16 @@
             emailjs.send(emailjsConfig.serviceId, emailjsConfig.templateId, confirmationData, emailjsConfig.publicKey)
               .then(() => console.log('Confirmation email sent'))
               .catch((err) => console.error('Confirmation email failed:', err));
+          }
+
+          // Auto-reserve ordered collections in Firebase
+          if (typeof window.getOrderCart === 'function' && typeof window.collectionStatus !== 'undefined') {
+            const cart = window.getOrderCart();
+            cart.forEach(item => {
+              window.collectionStatus.updateStatus(item.id, 'reserved')
+                .then(() => console.log(`Collection ${item.id} set to reserved`))
+                .catch(err => console.error(`Failed to reserve ${item.id}:`, err));
+            });
           }
 
           // Clear order cart after successful submission
