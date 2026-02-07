@@ -145,10 +145,6 @@
       }
     }
 
-    // Apply language visibility
-    const currentLang = document.body.classList.contains('lang-nl') ? 'nl' : 'en';
-    badge.querySelectorAll('.lang-nl').forEach(el => el.style.display = currentLang === 'nl' ? '' : 'none');
-    badge.querySelectorAll('.lang-en').forEach(el => el.style.display = currentLang === 'en' ? '' : 'none');
   }
 
   function listenForStatusChanges() {
