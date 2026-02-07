@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Admin - Stitching Dutch Heritage</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/navigation.css">
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+
+  <style>
+    .admin-container {
+      max-width: 900px;
+      margin: 120px auto 60px;
+      padding: 0 var(--spacing-md);
+    }
+
+    .admin-header {
+      text-align: center;
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .admin-header h1 {
+      color: var(--color-primary);
+      font-size: 2rem;
+      font-style: italic;
+    }
+
+    .admin-header p {
+      color: var(--color-text-light);
+      margin-top: var(--spacing-xs);
+    }
+
+    /* Login */
+    .admin-login {
+      max-width: 400px;
+      margin: 0 auto;
+      background: #faf7f2;
+      padding: var(--spacing-lg);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .admin-login label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: var(--spacing-xs);
+      color: var(--color-text);
+    }
+
+    .admin-login input {
+      width: 100%;
+      padding: var(--spacing-sm);
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      font-size: 1rem;
+      margin-bottom: var(--spacing-md);
+    }
+
+    .admin-login input:focus {
+      outline: none;
+      border-color: var(--color-primary);
+    }
+
+    .admin-login .btn-login {
+      width: 100%;
+      padding: var(--spacing-sm);
+      background: var(--color-primary);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background var(--transition-normal);
+    }
+
+    .admin-login .btn-login:hover {
+      background: #152d4a;
+    }
+
+    .login-error {
+      color: #c0392b;
+      font-size: 0.9rem;
+      margin-bottom: var(--spacing-sm);
+      display: none;
+    }
+
+    /* Collection list */
+    .admin-panel {
+      display: none;
+    }
+
+    .collection-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--spacing-md);
+      background: #faf7f2;
+      border-radius: var(--radius-md);
+      margin-bottom: var(--spacing-sm);
+      box-shadow: var(--shadow-sm);
+      gap: var(--spacing-md);
+    }
+
+    .collection-info {
+      flex: 1;
+    }
+
+    .collection-info h3 {
+      color: var(--color-primary);
+      font-size: 1.1rem;
+      margin: 0 0 4px;
+    }
+
+    .collection-info .collection-id {
+      color: var(--color-text-light);
+      font-size: 0.85rem;
+    }
+
+    .collection-info .collection-price {
+      color: var(--color-secondary);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .status-select {
+      padding: 10px 16px;
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      min-width: 160px;
+      transition: border-color var(--transition-fast);
+    }
+
+    .status-select:focus {
+      outline: none;
+      border-color: var(--color-primary);
+    }
+
+    .status-select.status-available {
+      border-color: #4a9c59;
+      color: #4a9c59;
+    }
+
+    .status-select.status-reserved {
+      border-color: #d4860b;
+      color: #d4860b;
+    }
+
+    .status-select.status-sold {
+      border-color: #c0392b;
+      color: #c0392b;
+    }
+
+    .status-updated {
+      font-size: 0.8rem;
+      color: var(--color-text-light);
+      margin-top: 4px;
+      min-width: 160px;
+      text-align: center;
+    }
+
+    .status-controls {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .save-notification {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      padding: 12px 24px;
+      background: #4a9c59;
+      color: #fff;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      box-shadow: var(--shadow-md);
+      z-index: 9999;
+      display: none;
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    .admin-actions {
+      text-align: center;
+      margin-top: var(--spacing-lg);
+    }
+
+    .admin-actions a {
+      color: var(--color-primary);
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      .collection-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .status-controls {
+        width: 100%;
+        align-items: flex-start;
+      }
+
+      .status-select {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body class="lang-en">
+  <!-- Navigation -->
+  <header class="header">
+    <nav class="nav-container">
+      <a href="index.html" class="nav-brand">Stitching Dutch Heritage</a>
+    </nav>
+  </header>
+
+  <div class="admin-container">
+    <div class="admin-header">
+      <h1>Collection Management</h1>
+      <p>Manage the availability status of your collections</p>
+    </div>
+
+    <!-- Login Form -->
+    <div class="admin-login" id="loginForm">
+      <label for="adminPassword">Admin Password</label>
+      <p class="login-error" id="loginError">Incorrect password. Try again.</p>
+      <input type="password" id="adminPassword" placeholder="Enter password" autofocus>
+      <button class="btn-login" id="loginBtn">Login</button>
+    </div>
+
+    <!-- Admin Panel (hidden until login) -->
+    <div class="admin-panel" id="adminPanel">
+      <div id="collectionList">
+        <!-- Collection rows are generated by JavaScript -->
+      </div>
+
+      <div class="admin-actions">
+        <p><a href="wholesale-collections.html">View Collections Page</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Save notification -->
+  <div class="save-notification" id="saveNotification">Status saved!</div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; 2026 Stitching Dutch Heritage. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Site Config (gitignored) -->
+  <script src="js/config.js"></script>
+  <!-- Collection Status Script -->
+  <script src="js/collection-status.js"></script>
+
+  <script>
+    // Admin password - loaded from js/config.js
+    const ADMIN_PASSWORD = window.SITE_CONFIG && window.SITE_CONFIG.admin ? window.SITE_CONFIG.admin.password : '';
+
+    // Collection definitions
+    const COLLECTIONS = [
+      { id: 'RH', name: 'Royal Story I - Birth & Inauguration', nameNl: 'Koninklijk Verhaal I - Geboorte & Inhuldiging', price: 225 },
+      { id: 'RO', name: 'Royal Story II - The House of Orange', nameNl: 'Koninklijk Verhaal II - Het Huis van Oranje', price: 175 },
+      { id: 'ZS', name: 'Zaan Scenes', nameNl: 'Zaanse Taferelen', price: 225 },
+      { id: 'WM', name: 'Living with Wind and Water', nameNl: 'Wonen met Wind en Water', price: 150 },
+      { id: 'CS', name: 'City & Street', nameNl: 'Stad & Straat', price: 275 },
+      { id: 'SM', name: 'Samplers & Identity', nameNl: 'Nederland in Stof', price: 250 },
+      { id: 'FL', name: 'Folk Life & Tradition', nameNl: 'Van Alles Wat', price: 125 }
+    ];
+
+    // Login handling
+    const loginForm = document.getElementById('loginForm');
+    const adminPanel = document.getElementById('adminPanel');
+    const loginBtn = document.getElementById('loginBtn');
+    const loginError = document.getElementById('loginError');
+    const passwordInput = document.getElementById('adminPassword');
+
+    function login() {
+      const password = passwordInput.value;
+      if (password === ADMIN_PASSWORD) {
+        loginForm.style.display = 'none';
+        adminPanel.style.display = 'block';
+        loadCollections();
+      } else {
+        loginError.style.display = 'block';
+        passwordInput.value = '';
+        passwordInput.focus();
+      }
+    }
+
+    loginBtn.addEventListener('click', login);
+    passwordInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') login();
+    });
+
+    // Load collections and their statuses
+    function loadCollections() {
+      const list = document.getElementById('collectionList');
+
+      if (!window.collectionStatus) {
+        list.innerHTML = '<p style="color: #c0392b;">Firebase is not configured. Please update the config in js/collection-status.js</p>';
+        return;
+      }
+
+      window.collectionStatus.getStatuses().then(statuses => {
+        // If no statuses exist yet, initialize defaults
+        if (!statuses) {
+          const defaults = {};
+          COLLECTIONS.forEach(c => {
+            defaults[c.id] = { status: 'available', updated: new Date().toISOString() };
+          });
+          firebase.database().ref('collections').set(defaults).then(() => {
+            loadCollections();
+          });
+          return;
+        }
+
+        list.innerHTML = '';
+
+        COLLECTIONS.forEach(collection => {
+          const statusData = statuses[collection.id] || { status: 'available', updated: '' };
+          const row = createCollectionRow(collection, statusData);
+          list.appendChild(row);
+        });
+      }).catch(err => {
+        list.innerHTML = `<p style="color: #c0392b;">Error loading statuses: ${err}</p>`;
+      });
+    }
+
+    function createCollectionRow(collection, statusData) {
+      const row = document.createElement('div');
+      row.className = 'collection-row';
+      row.id = `row-${collection.id}`;
+
+      const updatedDate = statusData.updated
+        ? new Date(statusData.updated).toLocaleString('nl-NL', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })
+        : '';
+
+      row.innerHTML = `
+        <div class="collection-info">
+          <h3>${collection.name}</h3>
+          <span class="collection-id">${collection.id}</span> &middot;
+          <span class="collection-price">&euro;${collection.price}</span>
+        </div>
+        <div class="status-controls">
+          <select class="status-select status-${statusData.status}" data-collection-id="${collection.id}">
+            <option value="available" ${statusData.status === 'available' ? 'selected' : ''}>Te koop / Available</option>
+            <option value="reserved" ${statusData.status === 'reserved' ? 'selected' : ''}>Gereserveerd / Reserved</option>
+            <option value="sold" ${statusData.status === 'sold' ? 'selected' : ''}>Verkocht / Sold</option>
+          </select>
+          <div class="status-updated">${updatedDate ? `Updated: ${updatedDate}` : ''}</div>
+        </div>
+      `;
+
+      const select = row.querySelector('.status-select');
+      select.addEventListener('change', function() {
+        const newStatus = this.value;
+        const collectionId = this.getAttribute('data-collection-id');
+
+        // Update styling
+        this.className = `status-select status-${newStatus}`;
+
+        // Save to Firebase
+        window.collectionStatus.updateStatus(collectionId, newStatus).then(() => {
+          // Update timestamp
+          const updatedEl = row.querySelector('.status-updated');
+          updatedEl.textContent = `Updated: ${new Date().toLocaleString('nl-NL', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}`;
+
+          showSaveNotification();
+        }).catch(err => {
+          console.error('Failed to save status:', err);
+          alert('Failed to save. Check your Firebase configuration.');
+        });
+      });
+
+      return row;
+    }
+
+    function showSaveNotification() {
+      const notification = document.getElementById('saveNotification');
+      notification.style.display = 'block';
+      setTimeout(() => {
+        notification.style.display = 'none';
+      }, 2000);
+    }
+  </script>
+</body>
+</html>

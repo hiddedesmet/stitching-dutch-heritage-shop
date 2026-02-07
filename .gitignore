@@ -18,3 +18,6 @@ Thumbs.db
 .env
 .env.local
 .mcp.json
+
+# Site config with sensitive keys (use config.example.js as template)
+js/config.js
