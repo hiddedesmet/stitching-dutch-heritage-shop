@@ -68,16 +68,6 @@
             <!-- Certificate Tab -->
             <div class="lightbox-tab-content" data-tab-content="certificate">
               <div class="lightbox-certificate-container">
-                <button class="certificate-flip-btn" id="certificateFlipBtn">
-                  <span class="lang-nl">Bekijk in Engels</span>
-                  <span class="lang-en">View in English</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="1 4 1 10 7 10"></polyline>
-                    <polyline points="23 20 23 14 17 14"></polyline>
-                    <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path>
-                  </svg>
-                </button>
-
                 <div class="certificate-flip-card" id="certificateCard">
                   <div class="certificate-side certificate-nl" id="certificateContentNL">
                     <!-- Dynamic NL certificate content -->
@@ -146,7 +136,6 @@
     const overlay = lightbox.querySelector('.lightbox-overlay');
     const prevBtn = document.getElementById('lightboxPrev');
     const nextBtn = document.getElementById('lightboxNext');
-    const flipBtn = document.getElementById('certificateFlipBtn');
     const tabs = lightbox.querySelectorAll('.lightbox-tab');
 
     // Close lightbox
@@ -156,9 +145,6 @@
     // Navigation
     prevBtn.addEventListener('click', showPrevious);
     nextBtn.addEventListener('click', showNext);
-
-    // Certificate flip
-    flipBtn.addEventListener('click', toggleCertificateFlip);
 
     // Tab switching
     tabs.forEach(tab => {
@@ -308,25 +294,6 @@
     document.getElementById('detailsImage').src = `images/collections/${collectionId}/${workId}.jpg`;
   }
 
-  // Toggle certificate flip
-  function toggleCertificateFlip() {
-    certificateFlipped = !certificateFlipped;
-    const card = document.getElementById('certificateCard');
-    const flipBtn = document.getElementById('certificateFlipBtn');
-
-    if (certificateFlipped) {
-      // Now showing English certificate, button should offer to view Dutch
-      card.classList.add('flipped');
-      flipBtn.querySelector('.lang-nl').textContent = 'Bekijk in Nederlands';
-      flipBtn.querySelector('.lang-en').textContent = 'View in Dutch';
-    } else {
-      // Now showing Dutch certificate, button should offer to view English
-      card.classList.remove('flipped');
-      flipBtn.querySelector('.lang-nl').textContent = 'Bekijk in Engels';
-      flipBtn.querySelector('.lang-en').textContent = 'View in English';
-    }
-  }
-
   // Open lightbox
   function openLightbox(workId, collectionGroup) {
     console.log('🔍 Opening lightbox for:', workId, 'in collection:', collectionGroup);
@@ -383,9 +350,15 @@
     loadCertificateContent(currentWorkId);
     console.log('  ✓ Loading dynamic certificates for:', currentWorkId);
 
-    // Reset certificate flip
-    certificateFlipped = false;
-    document.getElementById('certificateCard').classList.remove('flipped');
+    // Set certificate language to match website language
+    const isEnglish = document.body.classList.contains('lang-en');
+    certificateFlipped = isEnglish;
+    const card = document.getElementById('certificateCard');
+    if (isEnglish) {
+      card.classList.add('flipped');
+    } else {
+      card.classList.remove('flipped');
+    }
 
     // Load details if on details tab
     if (currentTab === 'details') {
