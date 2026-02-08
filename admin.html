@@ -286,6 +286,7 @@
       { id: 'RO', name: 'Royal Story II - The House of Orange', nameNl: 'Koninklijk Verhaal II - Het Huis van Oranje', price: 175 },
       { id: 'ZS', name: 'Zaan Scenes', nameNl: 'Zaanse Taferelen', price: 225 },
       { id: 'WM', name: 'Living with Wind and Water', nameNl: 'Wonen met Wind en Water', price: 150 },
+      { id: 'MN', name: 'Windmills of the Netherlands', nameNl: 'Molens van Nederland', price: 150 },
       { id: 'CS', name: 'City & Street', nameNl: 'Stad & Straat', price: 275 },
       { id: 'SM', name: 'Samplers & Identity', nameNl: 'Nederland in Stof', price: 250 },
       { id: 'FL', name: 'Folk Life & Tradition', nameNl: 'Van Alles Wat', price: 125 }
@@ -336,6 +337,17 @@
             loadCollections();
           });
           return;
+        }
+
+        // Add any new collections that don't exist in Firebase yet
+        const updates = {};
+        COLLECTIONS.forEach(c => {
+          if (!statuses[c.id]) {
+            updates[`collections/${c.id}`] = { status: 'available', updated: new Date().toISOString() };
+          }
+        });
+        if (Object.keys(updates).length > 0) {
+          firebase.database().ref().update(updates);
         }
 
         list.innerHTML = '';
