@@ -416,9 +416,23 @@
     max-width: 600px;
   }
 
+  .van-ambacht {
+    min-height: auto;
+    display: flex;
+    flex-direction: column;
+    background-color: #f5f0e8;
+  }
+
+  .van-ambacht-image {
+    position: relative;
+    height: 300px;
+  }
+
   .van-ambacht-text {
+    position: relative;
     max-width: 100%;
     padding: var(--spacing-lg);
+    padding-bottom: var(--spacing-lg);
   }
 }
 
@@ -483,9 +497,22 @@
     gap: var(--spacing-lg);
   }
 
+  .van-ambacht-image {
+    height: 250px;
+  }
+
+  .van-ambacht-text {
+    padding: var(--spacing-md);
+  }
+
+  .van-ambacht-text .text-box {
+    padding: var(--spacing-md);
+  }
+
   .wat-wij-leveren h2,
   .van-ambacht-text h2 {
     font-size: 1.5rem;
+    white-space: normal;
   }
 }
 
