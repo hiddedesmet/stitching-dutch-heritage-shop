@@ -42,7 +42,7 @@
               <span class="lang-nl">Certificaat</span>
               <span class="lang-en">Certificate</span>
             </button>
-            <button class="lightbox-tab" data-tab="details">
+            <button class="lightbox-tab" data-tab="details" style="display:none;">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <circle cx="12" cy="12" r="10"></circle>
                 <line x1="12" y1="16" x2="12" y2="12"></line>
@@ -330,7 +330,7 @@
   }
 
   // Update lightbox content
-  function updateLightboxContent() {
+  async function updateLightboxContent() {
     if (!currentWorkId) {
       console.error('❌ No currentWorkId set!');
       return;
@@ -343,7 +343,19 @@
     const workImagePath = `images/collections/${collectionId}/${currentWorkId}.jpg`;
     document.getElementById('lightboxImage').src = workImagePath;
     document.getElementById('lightboxImage').alt = `Work ${currentWorkId}`;
-    document.getElementById('lightboxArticleNumber').textContent = currentWorkId;
+
+    // Show title and dimensions instead of article number
+    const articleNumberEl = document.getElementById('lightboxArticleNumber');
+    articleNumberEl.textContent = currentWorkId; // fallback while loading
+    if (window.descriptionsManager) {
+      const desc = await window.descriptionsManager.getDescription(currentWorkId);
+      if (desc && desc.metadata) {
+        const currentLang = document.body.classList.contains('lang-nl') ? 'nl' : 'en';
+        const title = currentLang === 'nl' ? desc.metadata.title_nl : desc.metadata.title_en;
+        const dimensions = desc.metadata.dimensions || '';
+        articleNumberEl.textContent = title + (dimensions ? ' — ' + dimensions : '');
+      }
+    }
     console.log('  ✓ Work image set to:', workImagePath);
 
     // Load and render dynamic certificates
