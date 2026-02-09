@@ -236,6 +236,57 @@
       display: block;
     }
 
+    /* Custom Checkbox */
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      margin-bottom: var(--spacing-md);
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      min-width: 20px;
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      background-color: var(--color-white);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      position: relative;
+      margin: 0;
+    }
+
+    .checkbox-group input[type="checkbox"]:checked {
+      background-color: var(--color-primary);
+      border-color: var(--color-primary);
+    }
+
+    .checkbox-group input[type="checkbox"]:checked::after {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 1px;
+      width: 6px;
+      height: 11px;
+      border: solid var(--color-white);
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+
+    .checkbox-group input[type="checkbox"]:hover {
+      border-color: var(--color-primary);
+    }
+
+    .checkbox-group label {
+      margin-bottom: 0;
+      font-weight: 500;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+
     @media (max-width: 968px) {
       .contact-layout {
         grid-template-columns: 1fr;
@@ -478,6 +529,12 @@
               </select>
             </div>
 
+            <div class="checkbox-group">
+              <input type="checkbox" id="billingSameAsShipping" name="billing_same_as_shipping" value="yes" checked>
+              <label for="billingSameAsShipping" class="lang-nl">Factuuradres is hetzelfde als verzendadres</label>
+              <label for="billingSameAsShipping" class="lang-en">Billing address same as shipping address</label>
+            </div>
+
             <div class="form-group">
               <label for="orderDetails" class="required lang-nl">Wholesale Aanvraag</label>
               <label for="orderDetails" class="required lang-en">Wholesale Request</label>
@@ -493,7 +550,13 @@
             <div class="form-group">
               <label for="additionalInfo" class="lang-nl">Aanvullende Informatie</label>
               <label for="additionalInfo" class="lang-en">Additional Information</label>
-              <textarea id="additionalInfo" name="additional_info" rows="4" placeholder="Any special requests or questions..."></textarea>
+              <textarea id="additionalInfo" name="additional_info" rows="4" placeholder=""></textarea>
+              <p class="form-note lang-nl">
+                U kunt hier interne referenties, gewenste vervoerders of speciale leveringsinstructies vermelden.
+              </p>
+              <p class="form-note lang-en">
+                You may include internal references, preferred carriers or special delivery instructions here.
+              </p>
             </div>
 
             <button type="submit" class="btn-submit">
