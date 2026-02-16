@@ -285,24 +285,21 @@ a:hover {
 /* Hide inactive language when toggling */
 body.lang-nl .lang-en,
 body.lang-en .lang-nl {
-  display: none;
+  display: none !important;
 }
 
 /* US-specific text: hidden by default, shown via geolocation */
-.lang-en-us {
-  display: none;
+body .lang-en-us {
+  display: none !important;
 }
 body.lang-en.geo-us .lang-en {
-  display: none;
+  display: none !important;
 }
 body.lang-en.geo-us .lang-en-us {
-  display: inline;
+  display: inline !important;
 }
 body.lang-en.geo-us p.lang-en-us {
-  display: block;
-}
-body.lang-nl .lang-en-us {
-  display: none;
+  display: block !important;
 }
 
 /* ================================
