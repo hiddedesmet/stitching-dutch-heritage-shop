@@ -288,6 +288,23 @@ body.lang-en .lang-nl {
   display: none;
 }
 
+/* US-specific text: hidden by default, shown via geolocation */
+.lang-en-us {
+  display: none;
+}
+body.lang-en.geo-us .lang-en {
+  display: none;
+}
+body.lang-en.geo-us .lang-en-us {
+  display: inline;
+}
+body.lang-en.geo-us p.lang-en-us {
+  display: block;
+}
+body.lang-nl .lang-en-us {
+  display: none;
+}
+
 /* ================================
    Responsive Design
    ================================ */
